@@ -34,7 +34,7 @@
     "jade": "~1.11.0",
     "json-2-csv": "^2.1.2",
     "lightbox2": "2.11.1",
-    "mongoose": "^5.2.5",
+    "mongoose": "^5.7.5",
     "morgan": "~1.9.0",
     "nano": "^6.4.4",
     "nodemailer": "^4.6.7",
