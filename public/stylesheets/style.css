@@ -1,0 +1,1480 @@
+
+h1, h2, h3 {
+	color: #021c42;
+	font-family: Verdana;
+    font-weight: bold;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1{
+	font-size:22pt;
+}
+body {  
+	margin:0px;
+	font-family: Arial, Verdana;
+        text-align: center;
+}
+
+a img {
+    border: 0;
+}
+
+ul{
+    list-style: none;
+    font-family: Arial, Verdana;
+}
+
+
+
+.ui-autocomplete { 
+    max-height:230px; 
+    width: 230px;
+
+    overflow-x:hidden;
+    overflow-y:scroll;
+} 
+
+.weatherAnchor a:link {
+    color:#FFD700;
+    padding: 2px;
+    border: 1px solid #FFD700;
+}
+.weatherAnchor a:visited {
+    color:#FFD700;
+    padding: 2px;
+    border: 1px solid #FFD700;
+}
+
+.flightplantable{
+	font-size:104%;
+	border-collapse: collapse;
+	border: 2px solid black;
+	font-family: Times;
+	margin-left: 5px;
+
+}
+
+
+.flightplantable td {
+	font-family: Times;
+	font-weight: bold;
+	padding: 1px;
+	
+}
+
+.flightplantable td a {
+	font-family: Times;
+	font-weight: bold;
+}
+
+
+.flightplantable td a:link {color:#68838B;}     
+.flightplantable td a:visited {color:#68838B;} 
+
+.weathertable td {
+	text-align:center;
+
+
+}
+
+
+.spanRight {
+    float:left;
+    display:inline;
+}
+
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+
+
+.newsText {
+	margin: 1em;
+	text-align:left;
+	font-size:115%;
+}
+
+
+.my_border {
+	width:100%;
+	height:100%;
+	border:6px outset  #000080;
+}
+/*.my_background {  
+	background-position: 50% 10%; 
+	background-image: url(Images/pts_logo.jpg);
+	background-size: 45% 70%;
+}*/
+
+#mysubmit { 
+	background-color: #FFFFBC; 
+   	padding: 15px; font-weight: bold; 
+   	font-family: Arial, Verdana;
+}
+
+td.padded {
+	padding-left:12px;
+}
+
+
+.right {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.left {
+  text-align: left;
+  margin-left: 1em;
+}
+
+.middle {
+	margin: auto;
+}
+
+.center {
+  margin-left: 20px;
+}
+
+.navbar-brand{
+    padding-top: 0px;
+}
+
+.navbar-brand img{
+    height: 50px;
+}
+
+/* For carat symbols */
+.navbar span{
+    color: #0A447A;
+}
+
+/* For drop down menu options */
+.navbar li a{
+    color: #0A447A;
+}
+
+/* Navigation items */
+.nav.navbar-nav li a {
+    color: #0A447A;
+    font-weight: 700;
+    font-size: 12pt;
+    font-family: Arial, Verdana;
+}
+.container-fluid{
+    width: 100%;
+    align-content: center;
+    margin-top: 5px; 
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* For when you hover over an element (get lighter) */
+.nav.navbar-nav li a:hover{
+    color: #0C65B7;
+}
+
+/* For when you click on the element (stay same color) */
+.nav.navbar-nav li a:focus{
+    color: #0A447A;
+}
+
+/* Move navbar text down */
+.navbar-nav{
+    margin-top: 4px;
+}
+
+.navbar-nav button{
+    color: #0A447A;
+    font-weight: 700;
+}
+
+* {
+    margin:0px;
+    padding:0px;
+    font-family:sans-serif;
+    color:black; 
+}
+
+
+
+
+/*
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    background:#999999;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+ */
+
+#sidebar{
+    position:fixed;
+    width:250px;
+    height:100%;
+    background: #444;
+    left:-250px;
+    transition: all 250ms linear; 
+    z-index: 1000;
+}
+
+#sidebar.active{
+    left:0px;
+    /* margin-left: -250px; */
+    
+}
+
+#sidebar ul li{
+    color:rgba(230,230,230,0.9);
+    font-size: 20px;
+    list-style:none;
+    border-bottom: 0px solid rgba(100,100,100,0.9);
+    line-height: 40px;
+}
+
+#sidebar li a {
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+    color: #CCC;
+}
+
+#sidebar a:hover{
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+.sidebar-brand {
+    height: 85px;
+    padding-top: 20px;
+    font-size: 28px;
+    line-height: 60px;
+    color: #EEEEEE;
+    background: #555;
+}
+
+
+/* .spanBtn{
+    display:block; 
+    width:30px;
+    height:5px;
+    background:#151719;
+    margin:3px 0px; 
+} */
+
+
+#sidebar .toggle-btn{
+    position:absolute;
+    left:280px;
+    top:20px;
+}
+
+#sidebar .toggle-btn span{
+    display:block; 
+    width:30px;
+    height:5px;
+    background:#151719;
+    margin:3px 0px; 
+}
+
+a:link {
+    color: black;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: black;
+  }
+
+
+.dtext {
+	-webkit-transform: rotate(-27deg);
+	-moz-transform: rotate(-27deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+	position: absolute; left:55%; top:55%;
+	font-familiy: Verdana;  font-weight:bold; color:#FFFFBC; font-size: 16px;
+}
+
+.logo {
+	padding: 1px; margin: 3px;
+}
+
+.toolbar {
+	/*font-weight:bold;*/
+	width:100%; 
+	margin: 0px; 
+	font-size: 12pt; 
+	overflow:hidden;
+}
+
+.toolbar a {
+	
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+    color:white;
+}
+.toolbar a:hover {
+text-decoration: none;
+	
+    
+}
+
+.terms_section{
+    height:250px;
+    border:1px 
+    solid #ccc; 
+    width:700px;
+    font:16px/26px Georgia, Garamond, Serif;
+}
+
+.toolbar .selected a {
+
+	margin-left: 25px;
+	margin-top: 80px;
+    display:block;
+	width:7%;
+	float:right;
+}
+.toolbar .selected img{
+	width:100%;
+}
+/*shu: might need this*/
+/*.toolbar .selectedhome a {
+
+	margin-left: 100px;
+    display:block;
+	width:30%;
+	float:left;
+	
+}*/
+
+.toolbar .selected a:hover {
+	text-decoration: none;
+}
+
+.func{
+	text-align: center;
+}
+.func a{
+	padding:4px;
+	color:rgb(136,196,255);
+}
+.func a:hover{
+	color:rgb(0,94,187);
+	background-color: #ffffff;
+}
+
+
+.input_table {
+	line-height: 1.5;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	border: 1px dotted #c8c8ff;
+	background-color: #f7f7f7;
+	-moz-border-radius: 15px;
+}
+
+.col_head_title {
+	text-align: center;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	font-size: 16px;
+	color: #ffffff;
+  	font-weight: bold;
+	background-color: #120087;
+	-moz-border-radius: 15px;
+}
+.col_head_title2 {
+	text-align: left;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #FF0000;
+	background-color: #f7f7f7;
+	-moz-border-radius: 1px;
+}
+
+.col_title {
+	text-align: left;
+	font-size: 11px;
+	background-color: #fffffc;
+}
+
+
+.col_title2 {
+	text-align: left;
+	padding-left: 15px;
+	background-color: #fffffa;
+}
+
+
+.col {
+	width: 180px;
+	padding-left: 25px;
+}
+.input_btn {
+	width: 60px;
+	padding: 2px;
+	font-size: 11px;
+	font-family:Verdana;
+	border: 1px outset #c8c8ff;
+	background-color: #ffff95;
+}
+
+.list {
+	width: 200px;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+.list td {
+	color: rgb(80,80,80);
+	padding: 2px;
+	border: 1px solid rgb(240,240,240);
+}
+.list td:hover {
+	background-color: rgb(255,255,153);
+	color: #000000;
+}
+.list th {
+	padding: 2px;
+	border: 1px solid rgb(240,240,240);
+	color: #ffffff;
+	background-color: #120087;
+}
+
+.list2 {
+	width: 90%;
+	border-collapse: collapse;
+	font-size: 12px;
+}
+.list2 td {
+	color: rgb(80,80,80);
+	padding: 2px;
+	border: 1px solid rgb(240,240,240);
+}
+.list2 td:hover {
+	background-color: rgb(255,255,153);
+	color: #000000;
+}
+.list2 th {
+	padding: 2px;
+	border: 1px solid rgb(240,240,240);
+	color: #ffffff;
+	background-color: #0099cc;
+}
+
+
+
+.eng {
+	font-family: Verdana, Arial;
+	font-size: 11px;
+}
+tr.view {
+	border-bottom: 1px solid #0070a6;
+	background-color: #FFFFFF;
+}
+
+.I  {
+   font-size:10pt;
+   font-style:italic;
+   font-family:Verdana,Arial;
+   COLOR:gray;
+}
+/*shu 11/06/2015: styling for center_block*/
+.center_block{
+margin-bottom:40px;
+padding-top:25px;
+background:url(Images/navibackground.jpg) no-repeat scroll center top / cover hsla(0, 0%, 0%, 0);
+}
+/*.selectedhome .logo img{
+	width: 10em;
+	height: 10em;
+}
+.selectedhome{
+	width : 20%;
+}*/
+.center_block_news{
+margin-bottom:40px;
+margin-top:25px;
+background:url(Images/newsHeader.jpg) no-repeat scroll center top / cover hsla(0, 0%, 0%, 0);
+}
+
+/*shu 10/23/2015: stationary toolbar styling*/
+.stationary{
+	opacity: 0.85;
+	background:#021c42; 
+	position:fixed; 
+	height: 2.3em;
+	overflow:hidden;
+}
+/*override default link font*/
+.stationary a{
+	font-size:14pt;	
+	margin-left:0.5em;
+	margin-right:0.5em;
+	width:100%;
+}
+.footer{
+	bottom:0;
+	left:0;
+	width:100%;
+}
+/*end stationary toolbar styling*/
+
+#flightform{
+	width:80%;
+	margin:0 auto;
+	overflow:hidden;
+}
+
+/*shu 10/26/2015: copyright styling*/
+.copyright a{
+	color:#FFFFFF;
+}
+.copyright a:visited{
+    text-decoration:none;
+}
+.copyright{
+	color: #FFFFFF;
+	width:100%;
+}
+/*end copyright styling*/
+
+input.button {
+    padding: 0 .25em;
+    width: 0;  /* IE table-cell margin fix */
+    overflow: visible;
+}
+
+input.button[class] {  /* IE ignores [class] */
+    width: auto;  /* cancel margin fix for other browsers */
+}
+
+
+.forumsIframe {
+    padding:10px;
+    background-color:white;
+    border: 2px solid black
+}
+
+/* Styles for Library/Quiz */
+.quiz {
+  width:        600px;
+  font-family:  serif;
+  text-align:   left;
+  margin-left:  auto;
+  margin-right: auto
+}
+
+.question {
+  font-size:    14px;
+}
+
+.answer_choice {
+  font-size:    12px;
+}
+
+#shoppingCartTable{
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	margin-top: 50px;
+}
+
+.shoppingCartRow{
+	height: 50px;
+}
+
+#topRow{
+	background-color: #233A5B;
+	font-weight: bold;
+	height: 30px;
+}
+
+#topRow .shoppingCartName{
+	color: white;
+	border: 1px solid none;
+}
+
+#topRow .shoppingCartPrice{
+	color: white;
+	border: 1px solid none;
+}
+
+.shoppingCartTrash{
+	width:5%;
+	border: 1px solid black;
+}
+
+.shoppingCartTrash:hover{
+	cursor: pointer;
+}
+
+.noX{
+	border: 1px solid none;
+	border-left:1px solid black;
+	border-top:1px solid black;
+	border-bottom:1px solid black;
+}
+
+.shoppingCartName{
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-left: 1px solid none;
+
+	width: 70%;
+}
+
+.shoppingCartPrice{
+	border: 1px solid black;
+	width: 25%;
+}
+
+#stripeHolder{
+	margin-top: 25px;
+}
+
+.carousel{
+    margin-top: -20px;
+    height: 500px;
+    width: 100%;
+}
+
+.carousel-inner{
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-inner .item{
+    height: 100%;
+    width: 100%;
+}
+
+#myCarousel{
+    overflow: hidden;
+    height: 500px;	
+}
+
+.item{
+    overflow: hidden;
+}
+
+.carousel-inner .item img{
+    height: 100%;
+    width: 100%;
+    min-width: 1500px;	
+    overflow: hidden;
+}
+
+.carousel-control.left, .carousel-control.right{
+    background-image: none; /* Black background on buttons */
+}
+
+.carousel-caption{
+    height: 100%;
+    vertical-align: middle;
+}
+
+.carouselCaptionsTable{
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    margin-top: 30px;
+}
+
+.carousel-indicators{
+    margin-bottom: 15px;
+}
+
+.carouselCaptionsHolder{
+    height: 100%;
+}
+
+.captionRow{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.captionRow.top{
+    vertical-align: bottom;
+}
+.captionRow.bottom{
+    vertical-align: top;
+}
+.captionCell{
+    width: 100%;
+}
+
+.librarytable td { height: 100px; vertical-align:middle;  padding: 5px}
+
+
+.librarytable td a { height: 100%; width:100%; font-size:110%; color: #000080;  }
+
+.librarytable td a:hover {background-color: #ffffff; font-size:100%;}
+
+.librarytable td a:link { color: #000080;  height: 100%; width:100%; font-size:110%;  }
+
+.librarytable td a:visited { color: #000080;  height: 100%; width:100%; font-size:110%;  }
+
+
+.captionHeader{
+    margin: auto;
+    width: 100%;
+    display: block;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 5vw;
+    overflow: auto;
+}
+
+.captionSubtitle{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    margin-top:20px;
+    font-size: 2vw;
+}
+
+.captionSubtitle a{
+    color: white;
+    text-decoration: underline;
+}
+
+.captionSubtitle a:hover{
+    cursor: pointer;
+}
+
+#premiumFlightSubtitle{
+    font-size: 1.9vw;
+}
+
+#descriptorsHolder{
+    margin-top: 40px;
+    width:100%;
+}
+
+.descriptors{
+    margin: 0 auto;
+    border-spacing:100px;
+}
+
+.descriptors td{
+    width: 300px;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.descriptorsImage td img{
+    height: 80px;
+    width: 80px;
+}
+
+.descriptorsTitle td{
+    padding-top: 20px;
+    font-size: 26px;
+}
+
+.descriptorsDescription td{
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size:18px;
+    font-weight: 300;
+}
+
+#elearningIcon, #flightPlanningIcon, #simulationIcon:hover{
+    cursor: pointer;
+}
+
+#quoteText{
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size:30px;
+    font-weight: 300;
+}
+
+#quoteAuthor{
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size:20px;
+    font-weight: 300;
+}
+
+#elearningBanner{
+    /*height: auto;*/
+    width: 100%;
+    margin-top: 60px;
+    background: url(Images/elearningBackground.png) no-repeat center center;
+    background-size: 100% auto;
+    padding-top: 25px;
+    /*min-height: 500px;*/
+
+}
+
+#elearningBanner h3 a{
+    color: white;
+    text-decoration: underline;
+}
+
+.sectionHeader{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 100px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.sectionSubtext{
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+#elearningHolder{
+    width: 100%;
+    height: 300px;
+    display: table;
+}
+
+#elearningVerticalAlign{
+    display: table-cell;
+    vertical-align: bottom;
+    height: 250;
+    padding-bottom: 15px;
+}
+
+#elearningOptions{
+    margin: 0 auto;
+}
+
+#elearningOptions tr td{
+    width: 260px;
+    text-align: center;
+}
+
+#elearningImages{
+}
+
+#elearningImages img{
+    height: 175px;
+    width: 225px;
+    overflow: hidden;
+    border-radius: 3%;
+}
+
+#elearningImages img:hover{
+    cursor: pointer;
+}
+
+#elearningDescriptions{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: white;
+}
+
+#elearningDescriptions td{
+    padding-top:10px;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.sectionBannerSmall{
+    display: table;
+    margin-top: 0px;
+    height: 350px;
+    width: 100%;
+}
+
+#flightPlanningSection{
+    background: url(Images/flightPlanningBackground.png) no-repeat center center;
+    background-size: 100% auto; 
+}
+
+#simulationSection{
+    background: url(Images/simulationBackground.png) no-repeat center center;
+    background-size: 100% auto; 
+}
+
+.sectionInfoHolder{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.socialHolder{
+    margin-top: 50px;
+    margin-bottom: 50px
+}
+
+.socialTable{
+    margin: 0 auto;
+    width: 400px;
+    text-align: center;
+}
+
+.fa-twitter-square{
+    color: #1DA1F2;
+}
+
+.fa-twitter-square:hover{
+    color: #1683C8;
+}
+
+.fa-facebook-square{
+    color: #3B5998;
+}
+
+.fa-facebook-square:hover{
+    color: #2F477A;
+}
+
+.fa-wordpress{
+    color: #0087BE;
+}
+
+.fa-wordpress:hover{
+    color: #0073A1;
+}
+
+.fa-linkedin-square{
+    color: #0077B5;
+}
+
+.fa-linkedin-square:hover{
+    color: #00669B;
+}
+
+.fa-instagram{
+   color: #D63086;
+}
+
+.fa-instagram:hover{
+    color: #9C44C6;
+}
+
+.banner{
+    height: 100%;
+    width: 100%;
+    margin-bottom: 0px;
+	display: table; 
+}
+
+#discoverClimadriveBanner{
+    background: url('Images/climadriveBanner.jpg') no-repeat center 0%;
+    background-size: cover;
+}
+
+#newFlightPlanningBanner{
+    background: url('Images/enrouteTransparent.png') no-repeat center 0%;
+    background-size: cover;
+}
+#droneTrainingBanner{
+    background: url('Images/droneBanner.png') no-repeat center 0%;
+    background-size: cover;
+}
+
+#flightPlanningBanner{
+    background: url('Images/enrouteTransparent.png') no-repeat center 0%;
+    background-size: cover; 
+}
+
+#commercialTrainingBanner{
+    background: url('Images/commercialFlightTrainingBanner.png') no-repeat center center;
+    background-size: cover;
+}
+
+#FlightTrainingBanner{
+	background: url('Images/flyCessna.jpg') no-repeat center center;
+	background-size: cover;
+}
+#newFlightTrainingBanner{
+        background: url('Images/flyCessna.jpg') no-repeat center;
+        background-size: cover;
+}
+
+
+#faaRegulationBanner{
+    background: url('Images/faaRegulationBanner.jpeg') no-repeat center center;
+    background-size: 100% auto;
+}
+
+.bannerDescriptionTable{
+    width: 100%;
+    height: 50%;
+}
+
+.bannerDescriptionRow{
+    padding: 25px;
+    text-align: center;
+    width: 50%;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+#bannerDescriptionDiv{
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+
+#bannerDescriptionVerticalAlign{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#bannerDescriptionVerticalAlign p{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.bannerDescriptionRow p{
+    text-align: left;
+}
+
+.bannerDescriptionRow img{
+    height: 250px;
+}
+
+#bannerDescriptionSmall{
+    width: 40%;
+}
+
+#bannerDescriptionLarge{
+    width: 60%;
+}
+
+#bannerDescriptionLarge p{
+    font-size: 20px;
+    text-align: center;
+}
+
+#premiumFeaturesTable{
+    margin-left:auto; 
+    margin-right:auto;
+    margin-bottom: 35px;
+    width:45%;
+    max-width: 1000px;
+    z-index: 2;
+}
+.unitResource{
+    background-size: auto 100%;
+    margin-left:auto;
+    margin-right:auto;
+    width: 700px;
+    height: 525px;
+}
+
+
+.premiumFeature{
+    margin: auto;
+    height: 100px;
+    width: 200px;
+    border: 1px solid #F0EFEF;
+    border-radius: 5px;
+    position: relative;
+    z-index: 2;
+    
+}
+#viewProgress{
+    background: white url('/images/progress.png') no-repeat center center;
+    background-size: 60px auto;
+}
+#customExam{
+    background: white url('/images/custom_exam.png') no-repeat center center;
+    background-size: 60px auto;
+}
+#practiceExam{
+    background: white url('/images/practice_exam.png') no-repeat center center;
+    background-size: 60px auto;
+}
+#regsSheet{
+    background: white url('/images/faa_regs.png') no-repeat center center;
+    background-size: 80px auto;
+}
+.premiumLock{
+    display: none;
+    width:125px;
+    height: 125px;
+    background: rgb(70,70,70) url('/images/lock.png') no-repeat center center;
+    background-size: 100px auto;
+    /*opacity: .9;*/
+    border-radius: 5px;
+    position: relative;
+}
+.lockedHeader{
+    margin: 0px;
+    color: #E3B737;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px;
+    position: relative;
+    top: 10px;
+}
+.lockedSubtitle{
+    margin: 0px;
+    color: #E3B737;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 12px;
+    position: absolute;
+    width:100%;
+    text-align: center;
+    bottom: 5px;
+}
+.premiumHeader{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    font-weight:700;
+    color: #0A447A;
+    position: absolute;
+    width:100%;
+    margin-top: 5px;
+}
+
+@media (max-width: 1000px){
+    #flightTrainingBanner{
+   	background-size: auto 150%;
+    }
+    #faaRegulationBanner{
+        background-size: auto 150%;
+    }
+    #discoverClimadriveBanner{
+        background-size: auto 150%;
+    }
+    #newFlightPlanningBanner{
+	background-size: auto 150%;
+    }
+    #droneTrainingBanner{
+        background-size: auto 150%;
+    }
+    #flightPlanningBanner{
+	background-size: auto 200%;
+    }
+    #commercialTrainingBanner{
+	background-size: auto 160%;
+    }
+   .captionSubtitle{
+	font-size: 20px;
+   }	
+}
+
+
+
+.bannerVerticalAlign{
+    display: table-cell;
+    vertical-align: middle;
+    position:absolute;
+    height:100%;
+    width:100%;
+}
+
+.header{
+    text-align: center;
+    color: white;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 60px;
+}
+
+.priceSubtitle{
+    color: white;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+}
+.whiteShadowText{
+    color: white;
+    text-shadow: 2px 2px #000000;
+    text-shadow: 2px 2px 8px #000000;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+}
+.blackShadowText{
+    color: black;
+    text-shadow: 2px 2px #000000;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+}
+.climaDriveCaption{
+    color: #ffffff;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+
+.droneTrainingInformation{
+    color: white;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+}
+
+.addToShoppingCart{
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 300px;
+    background-color: transparent;
+    color: white;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+.trainingInformation{
+    margin-top: 25px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin-left:100px;
+    margin-right:100px;
+}
+
+@media  (max-width: 750px){
+    #elearningImages img{
+        height: 150px;
+        width: 150px;
+    }
+    #elearningBanner{
+        background-size: 100% 600px;
+        margin-top: 100px;
+    }
+    .captionHeader{
+        font-size: 40px;
+    }
+    .captionSubtitle{
+        margin-top:5px;
+        font-size: 18px;
+    }
+     .carousel img{
+        min-height: 500px;
+        min-width: 1000px;
+        overflow: hidden;
+    }
+    #quoteText{
+        display: none;
+    }
+    #quoteAuthor{
+        display: none;
+    }
+	
+	.librarytable,
+	.librarytable tr{
+        margin-bottom: "80px";
+    }	
+	.librarytable td{
+		display:  inline-block;
+		width: 100%;		 
+        margin-bottom: 240px;
+    }
+
+    #premiumFeaturesTable td{
+		display:  inline-block;
+		width: 100%;		 
+    
+    } 
+}
+
+@media (max-width: 600px){
+    .sectionHeader{
+        font-size:30px;
+    }
+    .sectionSubtext{
+        font-size: 20px;
+    }
+    #elearningImages img{
+        height: 100px;
+        width: 100px;
+    }
+    #elearningBanner{
+        margin-top: 200px;
+        background-size: auto 500px;
+    }
+    #flightPlanningSection{
+        background-size: auto 150%;
+    }
+    #simulationSection{
+        background-size: auto 150%;
+    }
+
+}
+
+@media only screen and (max-device-width: 480px) and (orientation:portrait){
+    #myCarousel{
+        height: 1000px !important;
+    }
+
+    .unitResource{
+       width: 300px;
+       height: 225px;
+        background-size: 50%;
+         margin-left:auto;
+        margin-right:auto; 
+        min-width: 200px;
+        min-width: 150px;
+    
+    }
+
+    .terms_section{
+        border:1px 
+        solid #ccc; 
+        width: 85%;
+        height:250px;
+        font:16px/26px Georgia, Garamond, Serif;
+    }
+    .carousel-inner .item img{
+        height: 100%;
+        min-width: 2000px;	    
+    }
+    .captionHeader{
+        font-size: 80px;
+    }
+    .captionSubtitle{
+        font-size: 30px;
+    }
+    .descriptorsImage td img{
+        height: 150px;
+        width: 150px;
+    }
+    .descriptorsTitle td{
+        font-size: 40px;
+    }
+    .descriptorsDescription td{
+        font-size:30px;
+        vertical-align: top;
+    }
+    #quoteText{
+        display: none;
+    }
+    #quoteAuthor{
+        display: none;
+    }
+    .sectionHeader{
+        font-size:50px;
+    }
+    .sectionSubtext{
+        font-size: 30px;
+    }
+    #elearningImages img{
+        height: 200px;
+        width: 200px;
+    }
+    #elearningBanner{
+        margin-top: 50px;
+        background-size: 100% auto;
+    }
+    #flightPlanningSection{
+        background-size: 100% auto;
+    }
+    #simulationSection{
+        background-size: 100% auto;
+    }
+    .socialTable tr td a i{
+        font-size: 100px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-device-width: 480px) and (orientation:landscape){
+    .carousel{
+        height: 400px;
+    }
+    .carousel-inner .item img{
+        height: 100%;
+        min-width: 100px;
+    }
+    .captionHeader{
+        font-size: 50px;
+    }
+    .captionSubtitle{
+        width:100%;        
+        font-size: 20px;
+    }
+    .descriptorsImage td img{
+        height: 150px;
+        width: 150px;
+    }
+    .descriptorsTitle td{
+        font-size: 40px;
+    }
+    .descriptorsDescription td{
+        font-size:30px;
+        vertical-align: top;
+    }
+    #quoteText{
+        display: none;
+    }
+    #quoteAuthor{
+        display: none;
+    }
+    .sectionHeader{
+        font-size:50px;
+    }
+    .sectionSubtext{
+        font-size: 30px;
+    }
+    #elearningImages img{
+        height: 200px;
+        width: 200px;
+    }
+    #elearningBanner{
+        margin-top: 50px;
+        background-size: 100% auto;
+    }
+    #flightPlanningSection{
+        background-size: 100% auto;
+    }
+    #simulationSection{
+        background-size: 100% auto;
+    }
+}
+

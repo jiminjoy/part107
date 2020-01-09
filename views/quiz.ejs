@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+  <script type="text/javascript" src="/javascripts/main.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700" rel="stylesheet" type="text/css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+
+
+  <script src="https://use.fontawesome.com/webfontloader/1.6.24/webfontloader.js"></script>
+  <script src="https://use.fontawesome.com/3b44f61366.js"></script>
+
+  <link rel="stylesheet" href="/stylesheets/style.css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/3b44f61366.css" media="all">
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/javascripts/main.js"></script>
+  <script type="text/javascript">
+    var _titleStr = "Training Library";
+    var selectedButton = "library";
+
+  </script>
+
+  <!--because these styles are specific to these pages, they are left out of the main stylesheet-->
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/quiz.css">
+
+  <title> </title>
+
+
+</head>
+
+<body>
+  <div id="sidebar">
+    <div class="toggle-btn" onclick="toggleSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul>
+      <li class="sidebar-brand" style="font-size: 28px;">107 Training</li>
+      <li style="font-size:20px;" id="name" aria-haspopup="true" aria-expanded="false">
+      </li>
+      
+      <li>
+        <a href = "/main">Home</a>
+      </li>
+      <li>
+        <a href="https://ptsmap.herokuapp.com/">Mappix</a>
+      </li>
+      <li>
+        <a href = "/account">Account Settings</a>
+      </li>
+      <li>
+        <a href="/logout" >Log Out</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <script>
+    //function to uplaod quations to Cloudant. Not to be used if questions are uploaded or no update is required
+    // DO NOT DELETE 
+    //function uploadQuestions(){
+    //     $.ajax({
+    //           method: "GET",
+    //           url: "/upload_questions",
+    //           dataType: "json",
+    //           data: {
+
+    //           },
+    //           success: function(data){ 
+    //             alert('Successesfully uploaded');
+
+    //           },
+    //           error: function(jqXHR, textStatus, errorThrown){
+    //             alert("Questions not uploaded "+textStatus);
+    //           }
+    //         });
+    //         console.log("in upload")
+    //   }
+
+    function getUrlParameter(sParam) {
+
+      var param = new Array();
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+          param.push(sParameterName[1]);
+        }
+      }
+      return param === undefined ? true : param;
+    }
+
+    function getQueryVariable(variable) {
+
+      var query = window.location.href;
+      var vars = query.split("/");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          if (pair[1].includes("?")) {
+            var pair1 = pair[1].split("?");
+            return pair1[0];
+          }
+          return pair[1];
+        }
+      }
+      return (false);
+    }
+
+    document.getElementById("name").innerHTML = getCookie2("name");
+
+    function getCookie2(variable) {
+
+      var query = document.cookie;
+      var vars = query.split(";");
+      for (var i = 0; i < vars.length; i++) {
+        vars[i] = vars[i].trim();
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          if (pair[1].includes("?")) {
+            var pair1 = pair[1].split("?");
+            return pair1[0];
+          }
+          return pair[1];
+        }
+      }
+      return (false);
+    }
+
+    var questionData;
+
+    var reviewQuestions;
+
+    var d = new Date();
+
+    var startTime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+    if (getQueryVariable("title") == "Custom_Exam" || getQueryVariable("title") == "Practice_Exam") {
+
+      $.ajax({
+        method: "GET",
+        dataType: "json",
+        url: "/load_all_qestions",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: {
+          unit: getQueryVariable("title")
+        },
+        success: function (data) {
+          questionData = data;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Questions not loaded: " + textStatus);
+        }
+      });
+
+    }
+    else if (getQueryVariable("type") == "Review") {
+
+      var reviewQuizData = {
+        id: getQueryVariable("id"),
+        email: getCookie2("email"),
+        unit: getQueryVariable("title")
+      }
+
+      $.ajax({
+        method: "GET",
+        dataType: "json",
+        url: "/load_review_data",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: reviewQuizData,
+        success: function (data) {
+          reviewQuestions = data
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Questions not loaded: " + textStatus);
+        }
+      });
+
+    }
+    else {
+
+      $.ajax({
+        method: "GET",
+        dataType: "json",
+        url: "/load_qestions",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: {
+          unit: getQueryVariable("id")
+        },
+        success: function (data) {
+          questionData = data;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Questions not loaded: " + textStatus);
+        }
+      });
+    }
+
+    var resData = new Array();
+
+    function getScore() {
+
+
+      var d = new Date();
+      var endTime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+      var userQuizData = {
+        "StartTime": startTime,
+        "EndTime": endTime,
+        "Email": getCookie2("email"),
+        "Score": null,
+        "Questions": null,
+        "Answers": null,
+        "UserAnswers": null,
+        "Explanation": null,
+        "Figures": null,
+        "Type": getQueryVariable("title")
+      };
+
+      var questions = new Array();
+      var rightAnswer = new Array();
+      var userAnswers = new Array();
+      var explanations = new Array();
+      var figures = new Array();
+
+      var score = 0;
+
+      var quizDataLength;
+
+      if (getQueryVariable("title") == "Practice_Exam") {
+        quizDataLength = 60;
+      }
+      else if (getQueryVariable("title") == "Custom_Exam") {
+        quizDataLength = parseInt(getUrlParameter("length"));
+      }
+      else {
+        quizDataLength = 15;
+      }
+
+      for (var i = 1; i <= quizDataLength; i++) {
+
+        var t = i - 1;
+
+        var option = "Option " + resData[t]["Answer"];
+
+        var userSelAnswer = $('input[name=answer' + i + ']:checked').val();
+
+        questions.push(resData[t]["Question"]);
+
+        rightAnswer.push(resData[t]["Answer"] + ", " + resData[t][option]);
+
+        userAnswers.push(userSelAnswer + ", " + resData[t]["Option " + userSelAnswer]);
+
+        explanations.push(resData[t]["Explanation"]);
+
+        figures.push(resData[t]['Figures Number']);
+
+
+        //remove buttons, labels, and linebreaks after the options
+        document.getElementById("quis").removeChild(document.getElementById("A" + t));
+        document.getElementById("quis").removeChild(document.getElementById("B" + t));
+        document.getElementById("quis").removeChild(document.getElementById("C" + t));
+        document.getElementById("quis").removeChild(document.getElementById("LBA" + t));
+        document.getElementById("quis").removeChild(document.getElementById("LBB" + t));
+        document.getElementById("quis").removeChild(document.getElementById("LBC" + t));
+
+        document.getElementById("quis").removeChild(document.getElementById("LA" + t));
+        document.getElementById("quis").removeChild(document.getElementById("LB" + t));
+        document.getElementById("quis").removeChild(document.getElementById("LC" + t));
+        document.getElementById('submit').style.display = "none";
+
+        if (userSelAnswer == resData[t]["Answer"]) {
+
+          document.getElementById("userAnswer" + t).className = "correct_answer";
+          document.getElementById("userAnswer" + t).textContent = "Your Answer: " + userSelAnswer + ", " + resData[t]["Option " + userSelAnswer];
+          document.getElementById("userAnswer" + t).style.display = "block";
+
+          document.getElementById("explanations" + t).textContent = "Explanation: " + resData[t]["Explanation"]
+          document.getElementById("explanations" + t).style.display = "block";
+          document.getElementById("LBAfterExplanation" + t).style.display = "block";
+
+          score++;
+
+        } else {
+
+          document.getElementById("correctAnswer" + t).textContent = "Correct Answer: " + resData[t]["Answer"] + ", " + resData[t][option];
+          document.getElementById("correctAnswer" + t).style.display = "block";
+
+          document.getElementById("userAnswer" + t).className = "incorrect_answer";
+          document.getElementById("userAnswer" + t).textContent = "Your Answer: " + userSelAnswer + ", " + resData[t]["Option " + userSelAnswer];
+          document.getElementById("userAnswer" + t).style.display = "block";
+
+          document.getElementById("explanations" + t).textContent = "Explanation: " + resData[t]["Explanation"]
+          document.getElementById("explanations" + t).style.display = "block";
+          document.getElementById("LBAfterExplanation" + t).style.display = "block";
+        }
+      }
+
+     // userQuizData.Questions = questions;
+      userQuizData.Answers = rightAnswer;
+      // comment these lines because too long json file will cause a database error
+   //   userQuizData.UserAnswers = userAnswers;
+  //    userQuizData.Explanation = explanations;
+  //    userQuizData.Score = score;
+   //   userQuizData.Figures = figures;
+
+      //console.log(userQuizData);
+
+      sendUserData(userQuizData);
+      showScore(score);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+
+    }
+
+  </script>
+
+  <h2 id="quizTitle" style="padding-top:50px;margin-top:0px">
+
+    <script>
+
+
+      var type = getQueryVariable("title");
+
+      var quizType = "";
+
+      for (var i = 0; i < type.length; i++) {
+        if (type.charAt(i) == '_') {
+          quizType += ' ';
+        }
+        else {
+          quizType += type.charAt(i)
+        }
+      }
+
+      var title;
+
+      if (getQueryVariable("title") == "Custom_Exam") {
+        title = document.createTextNode("Custom Exam");
+      }
+      else if (getQueryVariable("title") == "Practice_Exam") {
+        title = document.createTextNode("Practice Exam");
+      }
+      else if (getQueryVariable("type") == "Review") {
+        title = document.createTextNode("Quiz Review");
+      }
+      else {
+        title = document.createTextNode("Quiz for " + quizType);
+      }
+      quizTitle.appendChild(title);
+
+      function sendUserData(quizData) {
+        $.ajax({
+          method: "GET",
+          dataType: "json",
+          url: "/send_user_score",
+          async: false,
+          contentType: "application/json; charset=utf-8",
+          data: {
+            quizData: quizData
+          },
+          success: function (data) {
+            alert("Quiz data sent: " + data);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("Quiz data not sent: " + textStatus);
+          }
+        });
+      }
+
+      function showScore(marks) {
+        var t = document.createTextNode("Score: " + marks + "/15");
+        quizTitle.appendChild(document.createElement("br"));
+        quizTitle.appendChild(document.createElement("br"));
+        quizTitle.appendChild(t);
+      }
+
+    </script>
+  </h2>
+
+  <br></br>
+
+  <form>
+
+    <div id="quis" class="quiz">
+
+      <script>
+
+        if (getQueryVariable("type") == "Review") {
+
+          var reviewQuesLength = reviewQuestions[0]["Answers"].length;
+
+          var fig = false;
+          // Use a for loop to create the list of questions
+          for (var i = 0; i < reviewQuesLength; i++) {
+
+            var qs = document.createElement("span");
+
+            qs.className = "question";
+            // question is the data got from json
+            var question = document.createTextNode((i + 1) + ") " + reviewQuestions[0]["Questions"][i]);
+
+            qs.appendChild(question);
+
+            if (reviewQuestions[0]["Figures"][i] != '') {
+              fig = true;
+              var figElm = document.createElement("a");
+              var figData = reviewQuestions[0]["Figures"][i];
+              figElm.name = "Figure " + figData;
+              figElm.target = "_blank";
+              figElm.text = "Figure " + figData;
+              figElm.className = "figure_ref";
+              figElm.rel = "noopener"
+              figElm.href = '/figure/num=' + figData;
+            }
+
+            var userAnswer = document.createElement("span");
+            userAnswer.id = "userAnswer" + i
+
+            var correctAnswer = document.createElement("span");
+            correctAnswer.className = "correct_answer";
+            //correctAnswer.value = "correct";
+            correctAnswer.id = "correctAnswer" + i
+
+            var explanation = document.createElement("span");
+            explanation.className = "explanation";
+            //explanation.value = "explanation";
+            explanation.id = "explanations" + i
+
+            if (reviewQuestions[0]["Answers"][i] == reviewQuestions[0]["UserAnswers"][i]) {
+
+              userAnswer.className = "correct_answer";
+              var userAnsText = document.createTextNode("Your Answer: " + reviewQuestions[0]["UserAnswers"][i]);
+              userAnswer.appendChild(userAnsText);
+              userAnswer.style.display = "block";
+              correctAnswer.style.display = "none";
+
+              var explanationText = document.createTextNode("Explantion: " + reviewQuestions[0]["Explanation"][i]);
+              explanation.appendChild(explanationText);
+              explanation.style.display = "block";
+
+            } else {
+
+              var correctAnsText = document.createTextNode("Correct Answer: " + reviewQuestions[0]["Answers"][i]);
+              correctAnswer.appendChild(correctAnsText);
+              correctAnswer.className = "correct_answer";
+              correctAnswer.style.display = "block";
+
+              userAnswer.className = "incorrect_answer";
+              var userAnsText = document.createTextNode("Your Answer: " + reviewQuestions[0]["UserAnswers"][i]);
+              userAnswer.appendChild(userAnsText);
+              userAnswer.style.display = "block";
+
+              var explanationText = document.createTextNode("Explanation: " + reviewQuestions[0]["Explanation"][i]);
+              explanation.appendChild(explanationText);
+              explanation.style.display = "block";
+
+            }
+
+            quis.appendChild(qs);
+            if (fig) {
+              quis.appendChild(document.createElement("br"));
+              quis.appendChild(figElm);
+            }
+            quis.appendChild(document.createElement("br"));
+            quis.appendChild(userAnswer);
+            quis.appendChild(document.createElement("br"));
+            quis.appendChild(correctAnswer);
+
+            quis.appendChild(document.createElement("br"));
+            quis.appendChild(explanation);
+            quis.appendChild(document.createElement("br"));
+
+          }
+
+        } else {
+
+          var questionNumbers = new Array();
+
+          var quizLength;
+
+          if (getQueryVariable("title") == "Practice_Exam") {
+            quizLength = 60;
+          }
+          else if (getQueryVariable("title") == "Custom_Exam") {
+            quizLength = parseInt(getUrlParameter("length"));
+          }
+          else {
+            quizLength = 15;
+          }
+
+          for (var i = 0; i < quizLength; i++) {
+
+            var fig = false;
+
+            var qs = document.createElement("span");
+
+            qs.className = "question";
+
+            var t = document.createTextNode(i + 1 + ". ");
+
+            questionNumbers.push(rand);
+
+            if (getQueryVariable("title") == "Practice_Exam") {
+              addPracticeQuestions(i);
+            }
+            if (getQueryVariable("title") == "Custom_Exam") {
+              addCustomQuestions(i);
+            }
+            else {
+              var rand = Math.floor((Math.random() * questionData.length) + 0);
+              resData.push(questionData[rand]);
+            }
+
+            var question = document.createTextNode("" + resData[i]["Question"]);
+
+            qs.appendChild(t); //Now add the question
+
+            qs.appendChild(question);
+            // record the information of the pictures
+            if (resData[i]["Figures Number"] != '') {
+
+              fig = true;
+              // var figElm = document.createElement(a);
+              //
+              // var figData = resData[i]["Figures Number"];
+              //
+              // figElm.className = "popup"
+              // figElm.onclick = my_click();
+              // figElm.text = "see the figure" + figData;
+
+
+              var figElm = document.createElement("a");
+
+              var figData = resData[i]["Figures Number"];
+
+
+              figElm.name = "Figure " + figData
+
+              figElm.target = "_blank"
+
+              figElm.text = "Figure " + figData;
+
+              figElm.className = "figure_ref";
+
+              figElm.rel = "noopener"
+
+              figElm.href = '/figure/num=' + figData;
+
+            }
+
+            //generate the choices
+            var choiceA = document.createElement("input");
+            choiceA.setAttribute('type', 'radio');
+            choiceA.value = "A";
+            choiceA.id = "A" + i
+            choiceA.name = "answer" + (i + 1).toString();
+
+            var labelA = document.createElement("TextBlock");
+            labelA.className = "answer_choice";
+            labelA.htmlFor = choiceA.id;
+            labelA.id = "LA" + i;
+            var textA = document.createTextNode("\xA0\xA0A: ");
+            var answerA = document.createTextNode("" + resData[i]["Option A"] + "\x0A");
+            labelA.appendChild(textA);
+            labelA.appendChild(answerA);
+
+            var choiceB = document.createElement("input");
+            choiceB.setAttribute('type', 'radio');
+            choiceB.value = "B";
+            choiceB.id = "B" + i
+            choiceB.name = "answer" + (i + 1).toString();;
+
+            var labelB = document.createElement("TextBlock");
+            labelB.className = "answer_choice";
+            labelB.htmlFor = choiceB.id;
+            labelB.id = "LB" + i;
+            var textB = document.createTextNode("\xA0\xA0B: ");
+            var answerB = document.createTextNode("" + resData[i]["Option B"]);
+            labelB.appendChild(textB);
+            labelB.appendChild(answerB);
+
+            var choiceC = document.createElement("input");
+            choiceC.setAttribute('type', 'radio');
+            choiceC.value = "C";
+            choiceC.id = "C" + i
+            choiceC.name = "answer" + (i + 1).toString();;
+
+            var labelC = document.createElement("TextBlock");
+            labelC.className = "answer_choice";
+            labelC.htmlFor = choiceC.id;
+            labelC.id = "LC" + i;
+            var textC = document.createTextNode("\xA0\xA0C: ");
+            var answerC = document.createTextNode("" + resData[i]["Option C"]);
+            labelC.appendChild(textC);
+            labelC.appendChild(answerC);
+
+            //correct answer and explanation for result
+            var userAnswer = document.createElement("span");
+            userAnswer.className = "incorrect_answer";
+
+            var correctAnswer = document.createElement("span");
+            correctAnswer.className = "correct_answer";
+            correctAnswer.value = "correct";
+            correctAnswer.id = "correctAnswer" + i
+
+            var userAnswer = document.createElement("span");
+            userAnswer.className = "correct_answer";
+            userAnswer.value = "user";
+            userAnswer.id = "userAnswer" + i
+
+            var explanation = document.createElement("span");
+            explanation.className = "explanation";
+            explanation.value = "explanation";
+            explanation.id = "explanations" + i
+
+
+            //append the elements
+            quis.appendChild(qs);
+            quis.appendChild(document.createElement("br"));
+
+            if (fig) {
+              quis.appendChild(figElm);
+              quis.appendChild(document.createElement("br"));
+            }
+
+            quis.appendChild(choiceA);
+            quis.appendChild(labelA);
+            var LBA = document.createElement("br")
+            LBA.id = "LBA" + i;
+            quis.appendChild(LBA);
+
+            quis.appendChild(choiceB);
+            quis.appendChild(labelB);
+            var LBB = document.createElement("br")
+            LBB.id = "LBB" + i;
+            quis.appendChild(LBB);
+
+            quis.appendChild(choiceC);
+            quis.appendChild(labelC);
+            var LBC = document.createElement("br")
+            LBC.id = "LBC" + i;
+            quis.appendChild(LBC);
+
+            quis.appendChild(userAnswer);
+            quis.appendChild(document.createElement("br"));
+            quis.appendChild(correctAnswer);
+
+            quis.appendChild(document.createElement("br"));
+            quis.appendChild(explanation);
+            var LBAfterExplanation = document.createElement("br");
+            LBAfterExplanation.id = "LBAfterExplanation" + i;
+
+            quis.appendChild(LBAfterExplanation);
+
+            //hide explanation, user answer & correctAnswer
+            explanation.style.display = "none";
+            correctAnswer.style.display = "none";
+            userAnswer.style.display = "none";
+            LBAfterExplanation.style.display = "none";
+
+          }
+
+
+          //Adds questions for practice exam. A better way should sought.
+          function addPracticeQuestions(i) {
+
+            var units = ["0", "1", "2", "3", "4a", "4b", "5", "6", "7"];
+
+            var index = 0;
+
+            if (i >= 0 && i < 7) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[0]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 7 && i < 14) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[1]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 14 && i < 21) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[2]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 21 && i < 28) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[3]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 28 && i < 35) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[4]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 35 && i < 42) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[5]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 42 && i < 48) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[6]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 48 && i < 54) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[7]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+            if (i >= 54 && i < 60) {
+              var store = new Array();
+              while (index < questionData.length) {
+                if (questionData[index]["Study Unit"] == units[8]) {
+                  store.push(questionData[index]);
+                }
+                index++;
+              }
+              var randNum = Math.floor((Math.random() * store.length) + 0);
+              resData.push(store[randNum]);
+            }
+
+          }
+
+          //adds questions for custom exam
+          function addCustomQuestions(i) {
+
+            var examLength = parseInt(getUrlParameter("length"));
+            var totalUnits = parseInt(getUrlParameter("unit").length);
+
+            var eachUnit = examLength / totalUnits;
+            var eachUnitRemainder = examLength % totalUnits;
+
+            var index = 0;
+
+            for (var j = 0; j < totalUnits; j++) {
+
+              if (i >= (j * eachUnit) && i < eachUnit * (j + 1)) {
+
+                var store = new Array();
+                while (index < questionData.length) {
+                  if (questionData[index]["Study Unit"] == getUrlParameter("unit")[j]) {
+                    store.push(questionData[index]);
+                  }
+                  index++;
+                }
+
+                var randNum = Math.floor((Math.random() * store.length) + 0);
+                resData.push(store[randNum]);
+
+              }
+
+            }
+
+          }
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.name = 'submit';
+          btn.id = 'submit';
+          btn.appendChild(document.createTextNode("Submit"));
+          quis.appendChild(btn);
+          document.getElementById('submit').onclick = getScore;
+        }        
+      </script>
+      <script>
+        // When the user clicks on div, open the popup
+        function my_click() {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
+        }
+      </script>
+  </form>
+
+  <br></br>
+  <br></br>
+</body>
+
+</html>

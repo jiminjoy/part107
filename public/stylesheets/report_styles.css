@@ -1,0 +1,112 @@
+.student_name {
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.score_report {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 36px;
+}
+
+.no_results_found {
+    /*margin-left: 30px;*/
+    text-align: center;
+    padding-bottom: 12px;
+}
+
+table.score_report {
+    border-spacing: 0;
+    width:  80%;
+    }
+
+table.score_report td, th {
+    padding: 0.1em 0.2em;
+    align-content: center;
+    height: 40px;
+}
+
+td img {
+    display: block;
+
+
+}
+
+td a {
+    display: block;
+}
+
+table{
+    width: 80%;
+}
+
+
+.divider{
+    background-color: #dddddd;
+    width: 100%;
+}
+
+table.score_report tr:nth-child(odd) {
+    color: #000;
+    background: #CCC;
+}
+
+table.score_report tr:nth-child(even) {
+    color: #000;
+    background: #EEE;
+}
+
+/* #reviewTable{
+
+    width: 90%;
+}
+
+#reviewColumnHeader{
+
+    font-size:18x;
+    font-weight:600;
+    height: 50px;
+} */
+
+.reviewRow{
+    height: 45px;
+    border-top: 1px solid #dddddd;
+    align-content: center;
+}
+
+/*.reviewRowComplete{
+    height: 45px;
+}
+
+.reviewRowIncomplete{
+    height: 45px;
+}
+*/
+
+#tableHeader{
+    display:table;
+}
+
+@media only screen and (max-device-width: 500px) and (orientation:landscape){
+    .score_report {
+        border-spacing: 0;
+        width:  100%;
+        overflow-x: scroll; 
+       
+    }
+
+    table.score_report th, td {
+        color: #000;
+        font-size: 9px;
+        height: auto;
+
+    }
+
+    table{
+        width: 95%;
+    }
+
+}

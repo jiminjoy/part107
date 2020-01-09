@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!--  <?php includeNavBarLibraries(); ?> -->
+
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+
+    <script src="https://use.fontawesome.com/webfontloader/1.6.24/webfontloader.js"></script>
+    <script src="https://use.fontawesome.com/3b44f61366.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/3b44f61366.css" media="all">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+    <script type="text/javascript">
+        var _titleStr = "Training Library";
+        var selectedButton = "library";
+        index_css();
+    </script>
+
+    <!--because these styles are specific to these pages, they are left out of the main stylesheet-->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/quiz.css">
+
+    <title> </title>
+
+
+</head>
+
+<body>
+
+  <div id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li class="sidebar-brand" style="font-size: 28px;">107 Training</li>
+            <li style="font-size:20px;" id="menu" aria-haspopup="true" aria-expanded="false">
+            </li>
+            <li>
+                <a href="/main">Home</a>
+            </li>
+            <li>
+                <a href="https://ptsmap.herokuapp.com/">Mappix</a>
+            </li>
+             <li>
+                <a href="/account">Account Settings</a>
+            </li>
+            <li>
+                <a href="/logout">Log Out</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+
+        document.getElementById("menu").innerHTML = getCookie2("name");
+
+        function getCookie2(variable) {
+            var query = document.cookie;
+            var vars = query.split(";");
+            for (var i = 0; i < vars.length; i++) {
+                vars[i] = vars[i].trim();
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    if (pair[1].includes("?")) {
+                        var pair1 = pair[1].split("?");
+                        return pair1[0];
+                    }
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+
+        function getPage() {
+
+            var name = getQueryVariable("title");
+            var id = getQueryVariable("id");
+
+            $.ajax({
+                method: "GET",
+                dataType: "json",
+                url: "/quiz/title=" + name + "/id=" + id,
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                    // alert("Questions not uploaded: "+errorThrown+jqXHR+textStatus);
+                }
+            });
+        }
+
+        function getQueryVariable(variable) {
+
+            var query = window.location.href;
+            var vars = query.split("/");
+
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) { return pair[1]; }
+            }
+
+            return (false);
+
+        }
+
+    </script>
+
+   <div class="container" style="padding-top:65px">
+
+    <table id="premiumFeaturesTable">
+        <tbody>
+            <tr>
+                <td>
+                    <a href="quiz/title=Weather_Part_2/id=4b">
+                        <div class="premiumFeature" id="customExam">
+                            <h3 class="premiumHeader">Quiz</h3>
+                        </div>
+                    </a>
+                    <br></br>
+                    <h3> Weather Part 2 </h3>
+                    <iframe class="unitResource" src="//www.youtube.com/embed/S98bpGRgM4E" style="border:0;">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <br></br>
+    <br></br>
+</body>
+
+</html>

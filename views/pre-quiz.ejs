@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml">
+	<head>
+      <!--  <?php includeNavBarLibraries(); ?> -->
+
+        <script type="text/javascript" src ="/javascripts/main.js"></script>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700" rel="stylesheet" type="text/css">
+
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+            <script src="https://use.fontawesome.com/webfontloader/1.6.24/webfontloader.js"></script><script src="https://use.fontawesome.com/3b44f61366.js"></script>
+
+            <link rel="stylesheet" href="/stylesheets/style.css">
+
+			<link rel="stylesheet" href="https://use.fontawesome.com/3b44f61366.css" media="all">
+			
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+            <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        		<script type="text/javascript" src="/javascripts/main.js"></script>
+		<script type="text/javascript">
+		      var _titleStr = "Training Library";
+          var selectedButton = "library";
+		      index_css();
+		</script>
+	
+        <!--because these styles are specific to these pages, they are left out of the main stylesheet-->
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/quiz.css">
+		
+		<title> </title>
+		
+
+	</head> 
+	<body>
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                  <img alt="Brand" src="/images/pts_logo_index.png">
+                </a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                    <ul class="dropdown-menu">
+      
+                  </ul>
+                  </li>
+             <li><a href="/Library/privateTutorials">Private Pilot</a></li>
+                  <li><a href="/Library/uas/drone_video_tutorials">Drones</a></li>
+                  <li><a href="/flightPlan">Flight Planning</a></li>
+                  <li><a href="/discoverClimadrive">Simulation</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-right:7px;">
+          
+
+    
+                  <a target="_blank" href="https://twitter.com/myPilotTraining" style="font-size:xx-small; display:inline;">
+                      <i class="fa fa-twitter-square fa-4x" aria-hidden="true" style="margin-top:5px;"></i> &nbsp;
+                  </a>
+
+                  <a target="_blank" href="https://www.facebook.com/PilotTrainingSystem/" style="font-size:xx-small; display:inline;">
+                      <i class="fa fa-facebook-square fa-4x" aria-hidden="true"></i> &nbsp;
+                  </a>
+
+              <a href="/checkout"><span style="display:inline;font-size:x-large;" class="glyphicon glyphicon-shopping-cart">&nbsp;</span></a>
+
+                  <span style="display:inline-block;"><li class="dropdown">
+                      <a href="#" style="font-size:22px;" id="menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                      aria-expanded="false">
+                      <script>
+
+                       document.getElementById("menu").innerHTML = getCookie2("name");
+
+                          function getCookie2(variable) {
+
+                          var query = document.cookie;
+                          var vars = query.split(" ");
+                          for (var i = 0; i < vars.length; i++) {
+                          var pair = vars[i].split("=");
+                          if (pair[0] == variable) {
+                              if (pair[1].includes("?")) {
+                              var pair1 = pair[1].split("?");
+                              return pair1[0];
+                              }
+                              return pair[1];
+                          }
+                          }
+                          return (false);
+                          }
+                      </script>
+                      <span class="caret"></span>
+                  </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/account">Account Settings</a></li>
+                      <li><a href="/Instructor/student_report_card">View PVT Progress</a></li>
+                      <li><a href="/Instructor/drone_report_card">View UAS Progress</a></li>
+                      <li><a href="/Instructor/pvt_student_select">Students' PVT Progress</a></li>
+                      <li><a href="/Instructor/uas_student_select">Students' UAS Progress</a></li>
+                      <li><a href="/checkout">Shopping Cart</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="/logout">Log out</a></li>
+                    </ul>
+                  </li>
+          
+
+           </span></ul>
+              </div>
+            </div>
+          </nav>
+    
+        <script type="text/javascript">
+            index_head();
+        </script>
+		
+
+<script>
+  
+    function getPage(){
+      
+        var name = getQueryVariable("title");
+        var id = getQueryVariable("id");
+        
+         $.ajax({
+            method: "GET",
+            dataType: "html",
+            url: "/quiz/title="+name+"/id="+id,
+            contentType: "application/json; charset=utf-8", 
+            success: function(data){ 
+              
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log(textStatus)
+               // alert("Questions not uploaded: "+errorThrown+jqXHR+textStatus);
+            }
+            });
+    }
+
+    function getQueryVariable(variable){
+
+       var query = window.location.href;
+       var vars = query.split("/");
+
+       for (var i=0; i<vars.length; i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+
+       return(false);
+
+}
+
+</script>
+
+<br></br><br>
+
+<table id="premiumFeaturesTable">
+        <tbody><tr>
+        <td>   
+        <a href=/quiz/title=Regulations/id=0>
+            <div class="premiumFeature" id="customExam" >
+                <h3 class="premiumHeader">Quiz</h3>
+            </div>
+          </a>
+        <br></br><br>
+        
+        <a href=/pvt_regs.pdf>
+            <div style="width:700px;height:525px;border:1px solid black;background:url(/images/0_Regulations.png) no-repeat center center;background-size:auto 100%; margin-left:auto;margin-right:auto">
+            </div>
+        </a>
+        </td>   
+        </tr></tbody>
+</table>
+
+<br></br><br></br>
+		<script type="text/javascript">
+			index_foot();
+		</script>
+	 
+	</body>
+</html>

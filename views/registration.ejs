@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>PTS | Registration</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.7.3"></script>
+
+    <script src="https://use.fontawesome.com/webfontloader/1.6.24/webfontloader.js"></script>
+    <script src="https://use.fontawesome.com/3b44f61366.js"></script>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/3b44f61366.css" media="all">
+
+
+    <script type="text/javascript">
+        var _titleStr = "PTS | Registration";
+
+    </script>
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/registerStyle.css" />
+
+</head>
+
+<body>
+    <div id="sidebar">
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul>
+        <li class="sidebar-brand" style="font-size: 28px;">107 Training</li>
+        <li style="font-size:20px;" id="name" aria-haspopup="true" aria-expanded="false">
+        </li>
+        <li>
+            <a href = "/account">Account Settings</a>
+        </li>
+        <li>
+            <a href = "/main">Home</a>
+        </li>
+        <li>
+            <a href="https://ptsmap.herokuapp.com/">MapView</a>
+        </li>
+        <li>
+            <a href="/logout" >Log Out</a>
+        </li>
+    </ul>
+</div>
+
+    <h2 id="title" style="padding-top:30px">PTS Registration</h2>
+
+    <form action="/users/submit_user" method="post" autocomplete="off">
+
+        <br>
+        <table  style="margin-top:0px; margin-left:400px;">
+
+            <tbody>
+                <tr>
+                    <div style="height:3em" class="middle" colspan="2">
+                        <input type="text" class="form-control" name="email" placeholder="Email*"id="email" required="" oninvalid="document.getElementById('title').scrollIntoView();">
+                        <span class="error_text" id="emailError"></span>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div style="height:3em" class="middle" colspan="2">
+                        <!-- onkeyup calls check() function when the password field is filled-->
+                        <input type="password" class="form-control" placeholder="Password*" name="password" id="password" onkeyup='check();' required="" oninvalid="document.getElementById('title').scrollIntoView();">
+                    </div>
+                </tr>
+
+                <tr>
+                    
+
+                    <div style="height:3em" class="middle" colspan="2"> 
+                        <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" id="password_confirmation" onkeyup='check();' required=""
+                            oninvalid="document.getElementById('title').scrollIntoView();">
+                       
+                    </div>
+                    <div> <span class="error_text" id='message'></span></div>
+                </tr>
+
+                <tr>
+                    <div style="height:3em" class="middle" colspan="2">
+                        <input type="text" class="form-control" placeholder="First Name*" name="first_name" id="first_name" required="" oninvalid="document.getElementById('title').scrollIntoView();">
+                    </div>
+                </tr>
+
+                <!-- <tr>
+                    <div>
+                        <label for="middle_name">Middle Name&ensp;</label>
+                    </div>
+
+                    <div>
+                        <input type="text" class="form-control" name="middle_name" id="middle_name">
+                    </div>
+                </tr> -->
+
+                <tr>
+                    <div style="height:3em" class="middle" colspan="2">
+                        <input type="text" class="form-control"  placeholder="Last Name*" name="last_name" id="last_name" required="" oninvalid="document.getElementById('title').scrollIntoView();">
+                    </div>
+                </tr>
+
+                <tr>
+                     <div style="height:3em; width: 25em;" class="middle" colspan="2">
+
+                        <input type="text" class="form-control" placeholder="Address" name="address" id="address"  autocomplete=off>
+                    </div>
+                    
+                </tr>
+<!-- 
+                <td class="right">
+                    <label for="country">Country&ensp;</label>
+                </td>
+
+                <td class="left">
+                    <select name="country" class="form-control" id="country" style="width: 200px; height: 35px;">
+                        <option value="US">United States</option>
+                        <option value="AF">Afghanistan</option>
+                        <option value="AX">Åland Islands</option>
+                        <option value="AL">Albania</option>
+                        <option value="DZ">Algeria</option>
+                        <option value="AS">American Samoa</option>
+                        <option value="AD">Andorra</option>
+                        <option value="AO">Angola</option>
+                        <option value="AI">Anguilla</option>
+                        <option value="AQ">Antarctica</option>
+                        <option value="AG">Antigua and Barbuda</option>
+                        <option value="AR">Argentina</option>
+                        <option value="AM">Armenia</option>
+                        <option value="AW">Aruba</option>
+                        <option value="AU">Australia</option>
+                        <option value="AT">Austria</option>
+                        <option value="AZ">Azerbaijan</option>
+                        <option value="BS">Bahamas</option>
+                        <option value="BH">Bahrain</option>
+                        <option value="BD">Bangladesh</option>
+                        <option value="BB">Barbados</option>
+                        <option value="BY">Belarus</option>
+                        <option value="BE">Belgium</option>
+                        <option value="BZ">Belize</option>
+                        <option value="BJ">Benin</option>
+                        <option value="BM">Bermuda</option>
+                        <option value="BT">Bhutan</option>
+                        <option value="BO">Bolivia, Plurinational State of</option>
+                        <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                        <option value="BA">Bosnia and Herzegovina</option>
+                        <option value="BW">Botswana</option>
+                        <option value="BV">Bouvet Island</option>
+                        <option value="BR">Brazil</option>
+                        <option value="IO">British Indian Ocean Territory</option>
+                        <option value="BN">Brunei Darussalam</option>
+                        <option value="BG">Bulgaria</option>
+                        <option value="BF">Burkina Faso</option>
+                        <option value="BI">Burundi</option>
+                        <option value="KH">Cambodia</option>
+                        <option value="CM">Cameroon</option>
+                        <option value="CA">Canada</option>
+                        <option value="CV">Cape Verde</option>
+                        <option value="KY">Cayman Islands</option>
+                        <option value="CF">Central African Republic</option>
+                        <option value="TD">Chad</option>
+                        <option value="CL">Chile</option>
+                        <option value="CN">China</option>
+                        <option value="CX">Christmas Island</option>
+                        <option value="CC">Cocos (Keeling) Islands</option>
+                        <option value="CO">Colombia</option>
+                        <option value="KM">Comoros</option>
+                        <option value="CG">Congo</option>
+                        <option value="CD">Congo, the Democratic Republic of the</option>
+                        <option value="CK">Cook Islands</option>
+                        <option value="CR">Costa Rica</option>
+                        <option value="CI">Côte d'Ivoire</option>
+                        <option value="HR">Croatia</option>
+                        <option value="CU">Cuba</option>
+                        <option value="CW">Curaçao</option>
+                        <option value="CY">Cyprus</option>
+                        <option value="CZ">Czech Republic</option>
+                        <option value="DK">Denmark</option>
+                        <option value="DJ">Djibouti</option>
+                        <option value="DM">Dominica</option>
+                        <option value="DO">Dominican Republic</option>
+                        <option value="EC">Ecuador</option>
+                        <option value="EG">Egypt</option>
+                        <option value="SV">El Salvador</option>
+                        <option value="GQ">Equatorial Guinea</option>
+                        <option value="ER">Eritrea</option>
+                        <option value="EE">Estonia</option>
+                        <option value="ET">Ethiopia</option>
+                        <option value="FK">Falkland Islands (Malvinas)</option>
+                        <option value="FO">Faroe Islands</option>
+                        <option value="FJ">Fiji</option>
+                        <option value="FI">Finland</option>
+                        <option value="FR">France</option>
+                        <option value="GF">French Guiana</option>
+                        <option value="PF">French Polynesia</option>
+                        <option value="TF">French Southern Territories</option>
+                        <option value="GA">Gabon</option>
+                        <option value="GM">Gambia</option>
+                        <option value="GE">Georgia</option>
+                        <option value="DE">Germany</option>
+                        <option value="GH">Ghana</option>
+                        <option value="GI">Gibraltar</option>
+                        <option value="GR">Greece</option>
+                        <option value="GL">Greenland</option>
+                        <option value="GD">Grenada</option>
+                        <option value="GP">Guadeloupe</option>
+                        <option value="GU">Guam</option>
+                        <option value="GT">Guatemala</option>
+                        <option value="GG">Guernsey</option>
+                        <option value="GN">Guinea</option>
+                        <option value="GW">Guinea-Bissau</option>
+                        <option value="GY">Guyana</option>
+                        <option value="HT">Haiti</option>
+                        <option value="HM">Heard Island and McDonald Islands</option>
+                        <option value="VA">Holy See (Vatican City State)</option>
+                        <option value="HN">Honduras</option>
+                        <option value="HK">Hong Kong</option>
+                        <option value="HU">Hungary</option>
+                        <option value="IS">Iceland</option>
+                        <option value="IN">India</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="IR">Iran, Islamic Republic of</option>
+                        <option value="IQ">Iraq</option>
+                        <option value="IE">Ireland</option>
+                        <option value="IM">Isle of Man</option>
+                        <option value="IL">Israel</option>
+                        <option value="IT">Italy</option>
+                        <option value="JM">Jamaica</option>
+                        <option value="JP">Japan</option>
+                        <option value="JE">Jersey</option>
+                        <option value="JO">Jordan</option>
+                        <option value="KZ">Kazakhstan</option>
+                        <option value="KE">Kenya</option>
+                        <option value="KI">Kiribati</option>
+                        <option value="KP">Korea, Democratic People's Republic of</option>
+                        <option value="KR">Korea, Republic of</option>
+                        <option value="KW">Kuwait</option>
+                        <option value="KG">Kyrgyzstan</option>
+                        <option value="LA">Lao People's Democratic Republic</option>
+                        <option value="LV">Latvia</option>
+                        <option value="LB">Lebanon</option>
+                        <option value="LS">Lesotho</option>
+                        <option value="LR">Liberia</option>
+                        <option value="LY">Libya</option>
+                        <option value="LI">Liechtenstein</option>
+                        <option value="LT">Lithuania</option>
+                        <option value="LU">Luxembourg</option>
+                        <option value="MO">Macao</option>
+                        <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                        <option value="MG">Madagascar</option>
+                        <option value="MW">Malawi</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="MV">Maldives</option>
+                        <option value="ML">Mali</option>
+                        <option value="MT">Malta</option>
+                        <option value="MH">Marshall Islands</option>
+                        <option value="MQ">Martinique</option>
+                        <option value="MR">Mauritania</option>
+                        <option value="MU">Mauritius</option>
+                        <option value="YT">Mayotte</option>
+                        <option value="MX">Mexico</option>
+                        <option value="FM">Micronesia, Federated States of</option>
+                        <option value="MD">Moldova, Republic of</option>
+                        <option value="MC">Monaco</option>
+                        <option value="MN">Mongolia</option>
+                        <option value="ME">Montenegro</option>
+                        <option value="MS">Montserrat</option>
+                        <option value="MA">Morocco</option>
+                        <option value="MZ">Mozambique</option>
+                        <option value="MM">Myanmar</option>
+                        <option value="NA">Namibia</option>
+                        <option value="NR">Nauru</option>
+                        <option value="NP">Nepal</option>
+                        <option value="NL">Netherlands</option>
+                        <option value="NC">New Caledonia</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="NI">Nicaragua</option>
+                        <option value="NE">Niger</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="NU">Niue</option>
+                        <option value="NF">Norfolk Island</option>
+                        <option value="MP">Northern Mariana Islands</option>
+                        <option value="NO">Norway</option>
+                        <option value="OM">Oman</option>
+                        <option value="PK">Pakistan</option>
+                        <option value="PW">Palau</option>
+                        <option value="PS">Palestinian Territory, Occupied</option>
+                        <option value="PA">Panama</option>
+                        <option value="PG">Papua New Guinea</option>
+                        <option value="PY">Paraguay</option>
+                        <option value="PE">Peru</option>
+                        <option value="PH">Philippines</option>
+                        <option value="PN">Pitcairn</option>
+                        <option value="PL">Poland</option>
+                        <option value="PT">Portugal</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="QA">Qatar</option>
+                        <option value="RE">Réunion</option>
+                        <option value="RO">Romania</option>
+                        <option value="RU">Russian Federation</option>
+                        <option value="RW">Rwanda</option>
+                        <option value="BL">Saint Barthélemy</option>
+                        <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                        <option value="KN">Saint Kitts and Nevis</option>
+                        <option value="LC">Saint Lucia</option>
+                        <option value="MF">Saint Martin (French part)</option>
+                        <option value="PM">Saint Pierre and Miquelon</option>
+                        <option value="VC">Saint Vincent and the Grenadines</option>
+                        <option value="WS">Samoa</option>
+                        <option value="SM">San Marino</option>
+                        <option value="ST">Sao Tome and Principe</option>
+                        <option value="SA">Saudi Arabia</option>
+                        <option value="SN">Senegal</option>
+                        <option value="RS">Serbia</option>
+                        <option value="SC">Seychelles</option>
+                        <option value="SL">Sierra Leone</option>
+                        <option value="SG">Singapore</option>
+                        <option value="SX">Sint Maarten (Dutch part)</option>
+                        <option value="SK">Slovakia</option>
+                        <option value="SI">Slovenia</option>
+                        <option value="SB">Solomon Islands</option>
+                        <option value="SO">Somalia</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="GS">South Georgia and the South Sandwich Islands</option>
+                        <option value="SS">South Sudan</option>
+                        <option value="ES">Spain</option>
+                        <option value="LK">Sri Lanka</option>
+                        <option value="SD">Sudan</option>
+                        <option value="SR">Suriname</option>
+                        <option value="SJ">Svalbard and Jan Mayen</option>
+                        <option value="SZ">Swaziland</option>
+                        <option value="SE">Sweden</option>
+                        <option value="CH">Switzerland</option>
+                        <option value="SY">Syrian Arab Republic</option>
+                        <option value="TW">Taiwan, Province of China</option>
+                        <option value="TJ">Tajikistan</option>
+                        <option value="TZ">Tanzania, United Republic of</option>
+                        <option value="TH">Thailand</option>
+                        <option value="TL">Timor-Leste</option>
+                        <option value="TG">Togo</option>
+                        <option value="TK">Tokelau</option>
+                        <option value="TO">Tonga</option>
+                        <option value="TT">Trinidad and Tobago</option>
+                        <option value="TN">Tunisia</option>
+                        <option value="TR">Turkey</option>
+                        <option value="TM">Turkmenistan</option>
+                        <option value="TC">Turks and Caicos Islands</option>
+                        <option value="TV">Tuvalu</option>
+                        <option value="UG">Uganda</option>
+                        <option value="UA">Ukraine</option>
+                        <option value="AE">United Arab Emirates</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="UY">Uruguay</option>
+                        <option value="UZ">Uzbekistan</option>
+                        <option value="VU">Vanuatu</option>
+                        <option value="VE">Venezuela, Bolivarian Republic of</option>
+                        <option value="VN">VietNam</option>
+                        <option value="VG">Virgin Islands, British</option>
+                        <option value="VI">Virgin Islands, U.S.</option>
+                        <option value="WF">Wallis and Futuna</option>
+                        <option value="EH">Western Sahara</option>
+                        <option value="YE">Yemen</option>
+                        <option value="ZM">Zambia</option>
+                        <option value="ZW">Zimbabwe</option>
+                    </select>
+
+                </td>
+
+                </tr>
+                <tr>
+                    <td class="right">
+                        <label for="zipcode">Zip Code&ensp;</label>
+                    </td>
+
+                    <td class="left">
+                        <input type="number" maxlength="5" class="form-control" name="zipcode" size="5" id="zipcode">
+                    </td>
+                </tr> -->
+
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <div
+                            class="g-recaptcha"
+                            data-sitekey="6LfPJGIUAAAAAJXbWFQNavXDH-jIbEFZmWv13ZNb"
+                            style="display: inline-block;"
+                    ></div>
+                </div>
+                <br>
+                <br>
+
+            </tbody>
+        </table>
+
+        <h4>Terms of Service</h4>
+        <div class="terms_section" style="overflow:auto;margin-left: auto;margin-right: auto;text-align:left;">
+            <b>1. General.</b> Welcome to pilottrainingsystem.com, the web site of Pilot Training System, LLC As part of our
+            service, Pilot Training System, LLC agrees to provide you with information and other computer services subject
+            to the terms of this Terms of Service Agreement. Upon notice published through the service, Pilot Training System,
+            LLC may amend or modify these Terms of Service at any time. Use of this site signifies your agreement to the
+            Terms of Service.
+            <br>
+            <br>
+            <b>2. Rights.</b> This site is owned and operated by Pilot Training System, LLC and contains material which is derived
+            in whole or in part from Pilot Training System, LLC and other sources and is protected by international copyright,
+            trademark and other intellectual property laws. You may not modify, copy, reproduce, republish, upload, post,
+            transmit or distribute in any way any material from this site including code and software. You may download material
+            from this site for your personal, non-commercial use only, provided you keep intact all copyright and other proprietary
+            notices.
+            <br>
+            <br>
+            <b>3. Limitation of Liability.</b> Under no circumstances, including, but not limited to negligence, shall Pilot
+            Training System, LLC or affiliates be liable for any direct, indirect, incidental, special or consequential damages
+            that result from the use of, or the inability to use Pilot Training System, LLC materials. You specifically acknowledge
+            and agree that Pilot Training System, LLC is not liable for any defamatory, offensive or illegal conduct of any
+            user. If you are dissatisfied with any material, or with, any of Pilot Training System, LLC terms and conditions,
+            your sole and exclusive remedy is to discontinue using the Pilot Training System, LLC web site. In addition,
+            Pilot Training System, LLC may allow you to purchase different types of products and services online that are
+            provided by third parties. Pilot Training System, LLC is not responsible for the quality, accuracy, timeliness,
+            reliability or any other aspect of these products and services. Your use of this site also signifies your release
+            of Pilot Training System, LLC and its affiliates from any damages that you incur, and agree not to assert any
+            claims against them, arising from your use of these products or services.
+            <br>
+            <br>
+            <b>4. Online Services and Disclaimer of Warranty.</b> The online resources, informational content, and software
+            on the pilottrainingsystem.com web site is provided “AS IS”, AND ALL WARRANTIES, EXPRESS OR IMPLIED, ARE DISCLAIMED,
+            INCLUDING, BUT NOT LIMITED TO, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, MERCHANTABILITY OF ANY COMPUTER PROGRAM
+            OR SOFTWARE, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY OF INFORMATIONAL CONTENT, OR SYSTEM INTEGRATION, OR NON-INFRINGEMENT.
+            Pilot Training System, LLC assumes no responsibility for any data loss or other loss suffered by any User of
+            this web site. User is fully responsible for maintaining its computer equipment and Internet access to use the
+            web site.
+            <br>
+            <br>
+            <b>5. Disclaimer.</b> Pilot Training System, LLC has provided links and pointers to Internet sites maintained by
+            third parties. Neither Pilot Training System, LLC, nor its affiliates operate or control in any respect any information,
+            products or services on these third-party sites. The materials in this site and the third-party sites are provided
+            “as is” and without warranties of any kind either express or implied. To the fullest extent permissible pursuant
+            to applicable law, Pilot Training System, LLC disclaims all warranties, express or implied, including, but not
+            limited to, implied warranties of merchantability and fitness for a particular purpose. Pilot Training System,
+            LLC does not warrant that the functions contained in the materials will be uninterrupted or error-free, that
+            defects will be corrected, or that this site, including bulletin boards, or the server that makes it available,
+            are free of viruses or other harmful components. Pilot Training System, LLC does not warrant or make any representations
+            regarding the use or the results of the use of the materials in this site or in third-party sites in terms of
+            their correctness, accuracy, timeliness, reliability or otherwise. You (and not Pilot Training System, LLC) assume
+            the entire cost of all necessary maintenance, repair or correction.
+            <br>
+            <br>
+            <b>6. Registration.</b> Certain areas of the pilottrainingsystem.com web site are provided solely to registered
+            Users of the web site. Any User registering for such services agrees to provide true and accurate information
+            during the registration process. Pilot Training System, LLC reserves the right to terminate the access of such
+            Users should Pilot Training System, LLC know, or have reasonable grounds to suspect, that a User has entered
+            false or misleading information during the registration process. ALL REGISTERED USERS MUST BE OF LEGAL AGE TO
+            REGISTER. Children under the age of 18 shall not be permitted to register unless under the strict supervision
+            of a legal guardian. Pilot Training System, LLC reserves the right to require valid credit card information as
+            proof of legal age.
+            <br>
+            <br>
+            <b>7. User account.</b> Users will select a username and password upon completing the registration process. Users
+            are fully responsible for maintaining the confidentiality of their username and password. User agrees to immediately
+            notify Pilot Training System, LLC at pilottrainingsystem@gmail.com should User know, or have reasonable grounds
+            to suspect, that the username and password have been compromised. Pilot Training System, LLC shall not be responsible
+            for User’s failure to abide by this Paragraph.
+            <br>
+            <br>
+            <b>8. Privacy.</b> Unless the user informs us otherwise, Pilot Training System, LLC reserves the right to use and
+            to disclose to third party vendors user information (e.g. user name and e-mail address) for purposes such as
+            providing users with information about products and services. If the user does not wish to be included in such
+            uses, the user must notify Pilot Training System, LLC via e-mail requesting to be taken off any lists of information
+            that may be used for these purposes or given or sold to third party vendors. E-mail requests to pilottrainingsystem@gmail.com
+            <br>
+            <br>
+            <b>9. Termination.</b> This agreement is effective until terminated by Pilot Training System, LLC at any time without
+            notice. In the event of termination, you are no longer authorized to access any bulletin boards and the restrictions
+            imposed on you with respect to material downloaded from the bulletin boards, the disclaimers and limitations
+            of liabilities set forth in this agreement, shall survive.
+            <br>
+            <br>
+            <b>10. Entire Agreement; Amendments.</b> This Terms of Service Agreement constitutes the entire agreement between
+            Pilot Training System, LLC and you with respect to the subject matter contained herein and supersedes all previous
+            and contemporaneous agreements, proposals and communications, written or oral. Pilot Training System, LLC may
+            amend or modify this Terms of Service Agreement or impose new conditions at any time without prior notice. Such
+            amendments and modifications shall be effective immediately upon notice thereof which may be given by means including,
+            but not limited to, posting on Pilot Training System, LLC. Any use of the service by you after such notice shall
+            be deemed to constitute acceptance by you of such amendments, modifications or new conditions.
+            <br>
+            <br>
+            <b>11. Governing Law.</b> This agreement shall be governed by and construed in accordance with the laws of the State
+            of Wisconsin without giving effect to any principles or conflicts of law.
+            <br>
+            <br>
+            <b>12. Severability. </b>If any provision of this agreement shall be unlawful, void or for any reason unenforceable,
+            then that provision shall be deemed severable from this agreement and shall not affect the validity and enforceability
+            of any remaining provisions.
+            <br>
+            <br> Continued use of the pilottrainingsystem.com website constitutes acceptance of these terms and conditions.
+            <br>
+            <br> If for some reason these Terms of Service are unacceptable to you, simply end your use of the website.
+        </div>
+        <br>
+        <br>
+        <span>I agree to the MyMappix, LLC terms of service <input type="checkbox" name="terms_agreement" value="" id="terms_checkbox">&nbsp;&nbsp;&nbsp;</span>
+        
+
+        <br>
+        <span class="error_text" id="termsError"></span>
+        <br>
+        <input type="submit" name="submit" class="btn btn-default" value="Register">
+        <br>
+        <br>
+
+        <br>
+        <br>
+        <div class="left" id="errorFieldBottom" style="visibility: hidden; color:red; text-align:center;"> </div>
+        <br>
+        <br>
+        <br>
+
+    </form>
+
+    <script type="text/javascript">
+
+        //This functions checks terms and conditions and email format, and stops the form from being submitted if failed.
+        function validate() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var password_confirmation = document.getElementById("password_confirmation").value;
+            var first_name = document.getElementById("first_name").value;
+            var last_name = document.getElementById("last_name").value;
+
+
+            if (!ValidateEmail(email)) {
+                document.getElementById('title').scrollIntoView();
+                document.getElementById('emailError').innerHTML = 'Please enter a valid email.';
+                event.preventDefault();
+                return false;
+            }
+            //Must agree with the terms and conditions
+            if (!document.getElementById("terms_checkbox").checked) {
+                event.preventDefault();
+                document.getElementById('termsError').innerHTML = 'Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy.';
+                return false;
+            }
+            else if (document.getElementById('password').value !=
+                document.getElementById('password_confirmation').value) {
+                event.preventDefault();
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        //checks if the email format is alright
+        function ValidateEmail(mail) {
+            //shu: uncomment
+            //var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+            var mailformat = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|prof|bio|wiki|info|int|mil|museum|name|navy|ngo|net|org|pro|travel|mobi|tel|win|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
+            if (mail.match(mailformat)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        //this function checks if the password and confirm password field are the same
+        var check = function () {
+            if (document.getElementById('password_confirmation').value != "") {
+                if (document.getElementById('password').value ==
+                    document.getElementById('password_confirmation').value) {
+                    document.getElementById('message').innerHTML = '';
+                } else {
+                    document.getElementById('message').style.color = 'red';
+                    document.getElementById('message').innerHTML = '\u2002Passwords do not match.';
+                }
+            }
+        }
+
+        $(document).ready(function () {
+
+            $('form').submit(function (event) {
+
+                event.preventDefault()
+
+                if (validate()) {
+
+                    var formData = $(this).serialize();
+
+                    $.ajax({
+                        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                        url: '/users/submit_user', // the url where we want to POST
+                        dataType: 'json',// what type of data do we expect back from the server
+                        encode: true,
+                        data: formData,
+                        success: function (data) {
+                            alert("Successfully Registered");
+                            location.href = "/";
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(jqXHR.responseText);
+                            location.href = "/registration";
+                        }
+                    });
+                }
+
+            });
+
+        });
+
+    </script>
+
+    <script>
+        var placesAutocomplete = places({
+            container: document.querySelector('#address')
+        });
+    </script>
+
+</body>
+
+</html>

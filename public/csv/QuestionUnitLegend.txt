@@ -1,0 +1,11 @@
+Legend |  Title
+----------------------
+ 0     |  Regulations
+ 1     |  Airspace
+ 2     |  Airport Operations
+ 3     |  Loading and Performance
+ 4     |  Weather Part 1 
+ 5     |  Weather Part 2
+ 6     |  Aviation Weather Services
+ 7     |  Aeronautical Decision Making
+ 8     |  Physiological Factors

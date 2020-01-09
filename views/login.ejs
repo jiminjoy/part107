@@ -1,0 +1,133 @@
+<!DOCTPYE html>
+<html>
+
+<head>
+    <title>PTS | Login</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+
+    <script src="https://use.fontawesome.com/webfontloader/1.6.24/webfontloader.js"></script>
+    <script src="https://use.fontawesome.com/3b44f61366.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/3b44f61366.css" media="all">
+
+    <script type="text/javascript">
+        var _titleStr = "PTS | Login";
+        index_css();
+    </script>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/quiz.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/registerStyle.css" />
+    <style type="text/css">
+        form {
+            font-size: 20px;
+            margin: auto;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container" style="padding-top:60px">
+    <form method="POST" action="/users/login">
+
+        <p  "padding-right:15px">
+         
+            <input type="text" name="username"  id="username" size="25" value="" class="form-control" placeholder="Email" >
+        </p>
+
+        <p "padding-right:15px">
+        
+            <input type="password" name="password" id="password" size="25" class="form-control" placeholder="Password">
+            <br>
+            <span class="error_text" id='message'></span>
+        </p>
+
+        <p style=text-align:center; "padding-right:15px">
+            <input type="checkbox" name="rememberMe" value="rememberMe" id="rememberMe">
+            <label for="rememberMe"> Stay Logged In </label>
+        </p>
+
+        <p style=text-align:center; "padding-right:15px">
+            <a href="/registration"> New User </a>
+        </p>
+
+        <p style=text-align:center;>
+            <a href="/forgotpassword"> Forgot Username/Password</a>
+        </p>
+
+
+        <p style=text-align:center; "padding-right:15px">
+            <input type="submit" value="Log In" class="btn btn-default">
+        </p>
+    </form>
+</div>
+    <script>        
+
+        $(document).ready(function () {
+
+            // process the form
+            $('form').submit(function (event) {
+
+                // get the form data
+                // there are many ways to get this data using jQuery (you can use the class or id also)
+                var formData = {
+                    'username': $('input[name=username]').val(),
+                    'password': $('input[name=password]').val()
+                };
+
+                // process the form
+                $.ajax({
+                    type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url: '/users/login', // the url where we want to POST
+                    data: formData, // our data object
+                    dataType: 'json', // what type of data do we expect back from the server
+                    encode: true,
+                    success: function (data) {
+                        //document.cookie = "email="+data.email+";name="+data.firstname+" "+data.lastname;
+                        setCookie("email", data.email, 1)
+                        setCookie("name", data.firstname + " " + data.lastname, 1);
+                        location.href = "/main";
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        document.getElementById('message').innerHTML = "\u2001\u2001\u2001Invalid email or password";
+                    }
+                })
+                    // using the done promise callback
+                    .done(function (data) {
+
+                    });
+
+                // stop the form from submitting the normal way and refreshing the page
+                event.preventDefault();
+            });
+
+        });
+
+        function setCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+            else var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,386 @@
+<html xmlns="http://www.w3.org/1999/xhtml" class="wf-fontawesome-n4-active wf-active">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700" rel="stylesheet" type="text/css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+    <script src="https://use.fontawesome.com/webfontloader/1.6.24/webfontloader.js"></script>
+    <script src="https://use.fontawesome.com/3b44f61366.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/report_styles.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/3b44f61366.css" media="all">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+
+    <script type="text/javascript">
+        var _titleStr = "Training Library";
+        var selectedButton = "library";
+    </script>
+
+</head>
+
+<body>
+    <div id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li class="sidebar-brand" style="font-size: 28px;">107 Training</li>
+            <li style="font-size:20px;" id="name" aria-haspopup="true" aria-expanded="false">
+            </li>
+            <li>
+                <a href="/main">Home</a>
+            </li>
+            <li>
+                <a href="https://ptsmap.herokuapp.com/">Mappix</a>
+            </li>
+             <li>
+                <a href="/account">Account Settings</a>
+            </li>
+            <li>
+                <a href="/logout">Log Out</a>
+            </li>
+        </ul>
+    </div>
+<!--
+    <div class="container-fluid">
+         Collect the nav links, forms, and other content for toggling
+        <div id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="margin-right:7px;">
+                <span style="display:inline-block;">
+                    <li class="dropdown">
+                        <br>
+                        <text style="font-size:22px;" id="name" aria-haspopup="true" aria-expanded="false">
+                        </text>
+                    </li>
+                    <li>
+                        <a href="/main">Home</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a href="/account ">Account Settings</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a href="/logout">Log out</a>
+                    </li>
+                </span>
+            </ul>
+        </div>
+    </div>
+-->
+    <br>
+    <br>
+
+    <h2>
+        Score Report
+    </h2>
+
+    <br>
+
+    <h2 id="name"></h2>
+
+    <div class="container">
+        <table class="table table-condesed" id="record_table">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Unit Name</th>
+                    <th>Attempts</th>
+                    <th>Last Attempt</th>
+                    <th>Score</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+
+            <tbody id='tableBody'></tbody>
+
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <script>
+        document.getElementById("name").innerHTML = getCookie2("name");
+
+        var user_report;
+        var arrangedUserData = [];
+
+        $.ajax({
+            method: "GET",
+            dataType: "json",
+            url: "/users/get_user_report",
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            data: {
+                email: getCookie2("email")
+            },
+            success: function (data) {
+                user_report = data;
+                arrangeData();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+
+        function getCookie2(variable) {
+            var query = document.cookie;
+            var vars = query.split(";");
+            for (var i = 0; i < vars.length; i++) {
+                vars[i] = vars[i].trim();
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    if (pair[1].includes("?")) {
+                        var pair1 = pair[1].split("?");
+                        return pair1[0];
+                    }
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+
+        var unitName = ['Regulations', 'Airspace', 'Airport_Operations', 'Loading_and_Performance', 'Weather_Part_1',
+            'Weather_Part_2', 'Aviation_Weather_Services', 'Aeronautical_Decision_Making', 'Physiological_Factors', 'Practice_Exam', 'Custom_Exam'];
+
+        for (var i = 0; i < unitName.length; i++) {
+
+            var unitRow = document.createElement('tr')
+            if (i % 2 == 0) {
+                unitRow.class = "even";
+            }
+            else {
+                unitRow.class = "odd";
+            }
+            var pass_fail = document.createElement('td');
+            pass_fail.align = "center";
+            var unit_name = document.createElement('td');
+            var attempts = document.createElement('td');
+            attempts.align = "center";
+            var last_attempt = document.createElement('td');
+            var best_score = document.createElement('td');
+            best_score.align = "center";
+            var review = document.createElement('td');
+
+
+            var passfailIMG;
+            if (getAttempts(i) == 0) {
+                passfailIMG = document.createElement('txt');
+                passfailIMG.innerHTML = "-"
+            } else {
+                passfailIMG = document.createElement('img');
+                passfailIMG.src = getMark(i);
+            }
+            passfailIMG.alt = "check_mark";
+            passfailIMG.style = "width:30px;height:30px;";
+            pass_fail.appendChild(passfailIMG)
+
+            var unitLink = document.createElement('a');
+            unitLink.innerHTML = typeName(unitName[i]);
+            if (unitName[i] != "Practice_Exam" && unitName[i] != "Custom_Exam") {
+                unitLink.href = getLink(unitName[i]);
+            }
+            unit_name.appendChild(unitLink);
+
+            attempts.innerHTML = getAttempts(i);
+            last_attempt.innerHTML = getLastAttempt(i);
+            best_score.innerHTML = getBestScore(i) + "/" + getPossiblePoints(i);
+
+            var reviewLink = document.createElement('a')
+            var review_button = document.createElement('button')
+            review_button.type = "submit";
+            review_button.innerHTML = "Review";
+            review_button.className = "btn btn-primary"
+            reviewLink.href = "/drone_report_review/title=" + unitName[i];
+
+            if (arrangedUserData.length != 0) {
+                if (arrangedUserData[i].length != 0) {
+                    reviewLink.appendChild(review_button);
+                }
+            }
+            review.appendChild(reviewLink);
+            unitRow.appendChild(pass_fail);
+            unitRow.appendChild(unit_name);
+            unitRow.appendChild(attempts);
+            unitRow.appendChild(last_attempt);
+            unitRow.appendChild(best_score);
+            unitRow.appendChild(review);
+
+            document.getElementById('tableBody').appendChild(unitRow);
+        }
+
+        function getLink(unitType) {
+            if (unitType === 'Regulations') {
+                return "/quiz_regulations";
+            }
+            if (unitType === 'Airspace') {
+                return '/quiz_airspace';
+            }
+            if (unitType === 'Loading_and_Performance') {
+                return '/quiz_loading_and_performance';
+            }
+            if (unitType === 'Weather_Part_1') {
+                return '/quiz_weather_part1';
+            }
+            if (unitType === 'Weather_Part_2') {
+                return '/quiz_weather_part2';
+            }
+            if (unitType === 'Aviation_Weather_Services') {
+                return '/quiz_aviation_weather_services';
+            }
+            if (unitType === 'Airport_Operations') {
+                return '/quiz_airport_operations';
+            }
+            if (unitType === 'Aeronautical_Decision_Making') {
+                return '/quiz_aeronautical_decision_making';
+            }
+            if (unitType === 'Physiological_Factors') {
+                return '/quiz_physiological_factors';
+            }
+            else {
+                return '';
+            }
+            return '';
+        }
+
+        //returns url for check or x mark according to the score 
+        function getMark(unit) {
+            if (getBestScore(unit) >= (.9 * getPossiblePoints(unit))) {
+                return '/images/check.jpg';
+            }
+            else {
+                return '/images/x.png';
+            }
+            return '';
+        }
+
+        //returns the unit name without the underscore
+        function typeName(rawName) {
+            var type = rawName;
+            var quizType = "";
+            for (var i = 0; i < type.length; i++) {
+                if (type.charAt(i) == '_') {
+                    quizType += ' ';
+                }
+                else {
+                    quizType += type.charAt(i)
+                }
+            }
+            return quizType;
+        }
+
+        //returns number of attempts of the specific unit
+        function getAttempts(unit) {
+            if (arrangedUserData.length == 0) {
+                return 0;
+            } else {
+                return arrangedUserData[unit].length;
+            }
+        }
+
+        //arranges user quiz data according to the unitName array and puts it in a 2D array for easier access and iteration.
+        function arrangeData() {
+            var unitName = ['Regulations', 'Airspace', 'Airport_Operations', 'Loading_and_Performance', 'Weather_Part_1',
+                'Weather_Part_2', 'Aviation_Weather_Services', 'Aeronautical_Decision_Making', 'Physiological_Factors', 'Practice_Exam', 'Custom_Exam'];
+
+            for (var i = 0; i < unitName.length; i++) {
+                arrangedUserData[i] = [];
+                var index = 0;
+                for (var j = 0; j < user_report.length; j++) {
+                    if (user_report[j]['Type'] === unitName[i]) {
+                        arrangedUserData[i][index] = user_report[j];
+                        index++;
+                    }
+                }
+            }
+        }
+
+        //returns the last attempt of the given unit
+        function getLastAttempt(unit) {
+
+            if (arrangedUserData.length == 0) {
+                return "";
+            } else {
+                if (arrangedUserData[unit].length == 1) {
+                    return arrangedUserData[unit][0]['EndTime'];
+                }
+                if (arrangedUserData[unit].length < 1) {
+                    return "";
+                }
+
+                var date1 = arrangedUserData[unit][0]['EndTime'];
+                var date2;
+                var lastAttemptDate = "";
+
+                for (var i = 1; i < arrangedUserData[unit].length; i++) {
+                    date2 = arrangedUserData[unit][i]['EndTime'];
+
+                    if (new Date(date1).getTime() > new Date(date2).getTime()) {
+                        lastAttemptDate = date1;
+                    } else {
+                        date1 = date2;
+                        lastAttemptDate = date1;
+                    }
+                }
+
+                return lastAttemptDate;
+            }
+        }
+
+        //return the most possible points of the corresponding unit
+        function getPossiblePoints(unit) {
+            if (0 <= unit && unit <= 8) {
+                return 15;
+            }
+            if (unit == 9) {
+                return 60;
+            }
+            if (unit == 10) {
+                var biggest = 0;
+                arrangedUserData[unit].forEach(element => {
+                    if (element['Answers'].length > biggest) {
+                        biggest = element['Answers'].length;
+                    } else {
+                        biggest = biggest;
+                    }
+                });
+                return biggest;
+            }
+        }
+
+        //returns the best score
+        function getBestScore(unit) {
+            var best = 0;
+            if (arrangedUserData.length == 0) {
+                return 0;
+            } else {
+                arrangedUserData[unit].forEach(element => {
+                    if (parseInt(element['Score']) > best) {
+                        best = parseInt(element['Score']);
+                    } else {
+                        best = best;
+                    }
+                });
+                return best;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

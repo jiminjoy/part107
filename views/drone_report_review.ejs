@@ -1,0 +1,329 @@
+<html xmlns="http://www.w3.org/1999/xhtml" class="gr__pilottrainingsystem_com wf-fontawesome-n4-active wf-active">
+
+<head>
+    <script src="https://use.fontawesome.com/webfontloader/1.6.24/webfontloader.js"></script>
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript">
+        //Title of this page
+        var _titleStr = "PTS | View Progress Reports"
+    </script>
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"> </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/bootstrap/navigatorCustom.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/style.css">
+    <link rel="shortcut icon" href="Images/favicon.ico">
+    <title>PTS | View Progress Reports</title>
+
+
+    <script src="/jquery/jquery-migrate-1.2.1.js"></script>
+
+
+
+    <!--jQuery and css for chosen-->
+    <script type="text/javascript" src="/jquery/chosen/chosen.jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="/jquery/chosen/chosen.css">
+
+    <title> </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+
+    <script src="https://use.fontawesome.com/3b44f61366.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/report_styles.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/3b44f61366.css" media="all">
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+
+</head>
+
+<body >
+
+  
+
+    <div id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li class="sidebar-brand" style="font-size: 28px;">107 Training</li>
+            <li style="font-size:20px;" id="name" aria-haspopup="true" aria-expanded="false">
+            </li>
+            <li>
+                <a href="/main">Home</a>
+            </li>
+            <li>
+                <a href="https://ptsmap.herokuapp.com/">Mappix</a>
+            </li>
+             <li>
+                <a href="/account">Account Settings</a>
+            </li>
+            <li>
+                <a href="/logout">Log Out</a>
+            </li>
+        </ul>
+    </div>
+    <br>
+  
+    <!-- Print table with quiz attempts -->
+    
+    <div class="container" style="padding-top:30px">
+    <h2 id="reportTitle"></h2>
+        <table class="table table-condensed" id="reviewTable">
+            <thead>
+                <tr id="reviewColumnHeader">
+                    <td> Passed </td>
+                    <td> Trial</td>
+                    <td> Date </td>
+                    <td> Duration</td>
+                    <td> Score </td>
+                    <td> Review </td>
+                </tr>
+            </thead>
+            <tbody id='tableBody'></tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+
+        document.getElementById("name").innerHTML = getCookie2("name");
+        // document.getElementById("reportTitle").innerHTML = getQueryVariable("title");
+
+        function getQueryVariable(variable) {
+
+            var query = window.location.href;
+            var vars = query.split("/");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    if (pair[1].includes("?")) {
+                        var pair1 = pair[1].split("?");
+                        return pair1[0];
+                    }
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+
+        function getCookie2(variable) {
+            var query = document.cookie;
+            var vars = query.split(";");
+            for (var i = 0; i < vars.length; i++) {
+                vars[i] = vars[i].trim();
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    if (pair[1].includes("?")) {
+                        var pair1 = pair[1].split("?");
+                        return pair1[0];
+                    }
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+
+        var creds = {
+            'email': getCookie2("email"),
+            'unit': getQueryVariable("title"),
+        };
+
+        var userReviewData;
+
+        $.ajax({
+            method: "POST",
+            dataType: "json",
+            url: "/users/get_quiz_review",
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            data: creds,
+            success: function (data) {
+                userReviewData = data;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+
+        for (var i = 0; i < userReviewData.length; i++) {
+
+            var reviewRow = document.createElement('tr');
+            reviewRow.className = "reviewRow";
+
+            var passfail = document.createElement('td');
+            var trialNum = document.createElement('td');
+            var date = document.createElement('td');
+            var duration = document.createElement('td');
+            var score = document.createElement('td');
+            var buttonCell = document.createElement('td');
+
+            var passfailIMG = document.createElement('img');
+            passfailIMG.src = getMark(i);
+            passfailIMG.alt = "check_mark";
+            passfailIMG.style = "width:30px;height:30px;";
+            passfail.appendChild(passfailIMG);
+
+            trialNum.innerHTML = "" + (i + 1);
+            trialNum.align = "center";
+            date.innerHTML = userReviewData[i]["StartTime"];
+            duration.innerHTML = getDuration(i);
+            score.innerHTML = getPercentage(i) + "%";
+
+            //var viewLink = document.createElement('a')
+            var viewButton = document.createElement('button');
+            //viewButton.type = "submit";
+            viewButton.id = i;
+            viewButton.innerHTML = "View";
+            //viewLink.appendChild(viewButton);
+            //buttonCell.appendChild(viewLink);
+            viewButton.className = "btn btn-primary"
+
+            buttonCell.appendChild(viewButton)
+            reviewRow.appendChild(passfail);
+            reviewRow.appendChild(trialNum);
+            reviewRow.appendChild(date);
+            reviewRow.appendChild(duration);
+            reviewRow.appendChild(score);
+            reviewRow.appendChild(buttonCell);
+
+            document.getElementById('tableBody').appendChild(reviewRow);
+        };
+
+        //returns url for check or x mark according to the percentage 
+        function getMark(num) {
+            if (getPercentage(num) > 60) {
+                return '/images/check.jpg';
+            }
+            else {
+                return '/images/x.png';
+            }
+            return '';
+        }
+
+        //returns the unit name without the underscore
+        function typeName(rawName) {
+            var type = rawName;
+            var quizType = "";
+            for (var i = 0; i < type.length; i++) {
+                if (type.charAt(i) == '_') {
+                    quizType += ' ';
+                }
+                else {
+                    quizType += type.charAt(i)
+                }
+            }
+            return quizType;
+        }
+
+
+        function getPercentage(num) {
+            var percentage = userReviewData[num]['Score'] / userReviewData[num]['Answers'].length;
+            percentage *= 100;
+            return percentage.toFixed(2);
+        }
+
+        //calculates the duration of the quiz
+        function getDuration(num) {
+
+            var one_day = 1000 * 60 * 60;
+
+            var date1 = userReviewData[num]["StartTime"];
+            var date2 = userReviewData[num]["EndTime"];
+            var start = new Date(date1).getTime();
+            var end = new Date(date2).getTime();
+
+            var diffSecs = (end - start) / 1000;
+            var secs = Math.abs(Math.round(diffSecs));
+
+            var diffMins = (end - start) / 1000;
+            diffMins /= 60;
+            var mins = Math.abs(Math.round(diffMins));
+
+            var diffHrs = (end - start) / 1000;
+            diffHrs /= (60 * 60);
+
+            var hrs = Math.abs(Math.round(diffHrs));
+
+            return hrs + ":" + mins + ":" + secs;
+        }
+
+        //returns the last attempt of the given unit
+        function getLastAttempt(unit) {
+
+            if (arrangedUserData.length == 0) {
+                return "";
+            } else {
+                if (arrangedUserData[unit].length == 1) {
+                    return arrangedUserData[unit][0]['EndTime'];
+                }
+                if (arrangedUserData[unit].length < 1) {
+                    return "";
+                }
+
+                var date1 = arrangedUserData[unit][0]['EndTime'];
+                var date2;
+                var lastAttemptDate = "";
+
+                for (var i = 1; i < arrangedUserData[unit].length; i++) {
+                    date2 = arrangedUserData[unit][i]['EndTime'];
+
+                    if (new Date(date1).getTime() > new Date(date2).getTime()) {
+                        lastAttemptDate = date1;
+                    } else {
+                        date1 = date2;
+                        lastAttemptDate = date1;
+                    }
+                }
+
+                return lastAttemptDate;
+            }
+        }
+
+        //event handler for review quiz
+        $(document).ready(function () {
+            $("button").click(function (data) {
+
+                var quizNumber = data.toElement.id;
+                var id = userReviewData[quizNumber]["_id"];
+                var title = userReviewData[quizNumber]["Type"];
+
+                location.href = "/quiz/title=" + title + "/type=Review/trial=" + quizNumber + "/id=" + id;
+
+                // $.ajax({
+                //     method: "POST",
+                //     dataType: "json",
+                //     url: "/quiz/title=Review/trial="+quizNumber+"/id="+userReviewData[quizNumber]["_id"],
+                //     contentType: "application/x-www-form-urlencoded",
+                //     data: userReviewData[quizNumber],
+                //     success: function (data) {
+
+                //     },
+                //     error: function (jqXHR, textStatus, errorThrown) {
+
+                //     }
+                // });
+            });
+        });
+
+    </script>
+
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+
+</html>

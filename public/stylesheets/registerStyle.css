@@ -1,0 +1,69 @@
+
+input[type='text']{
+    width: 350px;
+    height: 35px;
+    margin: auto;
+}
+input[type='password']{
+    width: 350px;
+    height: 35px;
+    margin: auto;
+}
+.ui-autocomplete-input{
+	width: 200px;
+}
+
+form {
+    font-size: 15px;
+    text-align: center;
+    
+}
+
+tr>td {
+    padding-bottom: 10px;
+
+  }
+
+span.error_text{
+    color: #FF0000;
+    font-size: 15px;
+}
+
+label{
+    text-align: right;
+}
+
+label.required-field::after{
+    content: "*\2002";
+    color: red;
+    margin-left:2px
+
+}
+
+@media only screen and (max-device-width: 480px) and (orientation:portrait){
+    input[type='text']{
+        width: 200px;
+        height: 35px;
+        margin-left: auto;
+        margin-right:auto;
+    }
+    input[type='password']{
+        width: 200px;
+        height: 35px;
+        margin-left: auto;
+        margin-right:auto
+    }
+
+    input[type='number']{
+        width: 200px;
+        height: 35px;
+        margin-left: auto;
+        margin-right:auto
+    }
+
+
+    a{
+        font-size: 12px;
+    }
+
+}

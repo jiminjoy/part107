@@ -1,0 +1,22 @@
+.popover{
+	max-width: 667px;
+}
+.popover-title{
+	word-wrap: break-word;
+	text-align: left;
+}
+.popover-content{
+	word-wrap: break-word;
+	text-align: left;
+	overflow-x: auto;
+	overflow-y: auto;
+	max-height: 20em;
+}
+/**************************************************
+styling for mobile
+**************************************************/
+@media (max-width: 767px){
+	.popover-content{
+		max-height: 12em;
+	}
+}
