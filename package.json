@@ -9,7 +9,7 @@
     "@cloudant/cloudant": "^2.3.0",
     "@google/maps": "^0.4.3",
     "@okta/okta-auth-js": "^1.17.0",
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "bcrypt": "^3.0.6",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
