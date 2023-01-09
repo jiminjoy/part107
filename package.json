@@ -30,7 +30,7 @@
     "fibers": "^4.0.1",
     "helmet": "^3.13.0",
     "http-errors": "~1.6.2",
-    "ibmcloud-appid": "^6.0.1",
+    "ibmcloud-appid": "^6.3.1",
     "jade": "~1.11.0",
     "json-2-csv": "^2.1.2",
     "lightbox2": "2.11.1",
